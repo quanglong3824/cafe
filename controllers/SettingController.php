@@ -238,4 +238,81 @@ class SettingController extends Controller
         }
         $this->redirect('/it/database');
     }
+
+    /** GET /it/database/cleanup */
+    public function cleanupView(): void
+    {
+        Auth::requireRole(ROLE_IT, ROLE_ADMIN);
+        
+        $db = getDB();
+        $stats = [
+            'orders' => $db->query("SELECT COUNT(*) FROM orders")->fetchColumn(),
+            'menu_items' => $db->query("SELECT COUNT(*) FROM menu_items")->fetchColumn(),
+            'tables' => $db->query("SELECT COUNT(*) FROM tables")->fetchColumn(),
+            'notifications' => $db->query("SELECT COUNT(*) FROM order_notifications")->fetchColumn(),
+            'sessions' => $db->query("SELECT COUNT(*) FROM customer_sessions")->fetchColumn(),
+        ];
+
+        $this->view('layouts/admin', [
+            'view' => 'it/cleanup',
+            'pageTitle' => 'Dọn dẹp Cơ sở dữ liệu',
+            'pageSubtitle' => 'Xoá chọn lọc dữ liệu rác hoặc reset hệ thống',
+            'stats' => $stats,
+        ]);
+    }
+
+    /** POST /it/database/cleanup */
+    public function handleCleanup(): void
+    {
+        Auth::requireRole(ROLE_IT, ROLE_ADMIN);
+        
+        $types = $_POST['cleanup_types'] ?? [];
+        if (empty($types)) {
+            $_SESSION['flash'] = ['type' => 'warning', 'message' => 'Vui lòng chọn ít nhất một mục để dọn dẹp.'];
+            $this->redirect('/it/database/cleanup');
+        }
+
+        try {
+            $db = getDB();
+            $db->exec("SET FOREIGN_KEY_CHECKS = 0;");
+
+            foreach ($types as $type) {
+                switch ($type) {
+                    case 'orders':
+                        $db->exec("TRUNCATE TABLE order_items");
+                        $db->exec("TRUNCATE TABLE orders");
+                        $db->exec("TRUNCATE TABLE order_notifications");
+                        $db->exec("TRUNCATE TABLE support_requests");
+                        $db->exec("TRUNCATE TABLE table_status_history");
+                        $db->exec("TRUNCATE TABLE realtime_notifications");
+                        $db->exec("UPDATE tables SET status = 'available'");
+                        break;
+                    case 'menu':
+                        $db->exec("TRUNCATE TABLE menu_set_items");
+                        $db->exec("TRUNCATE TABLE menu_sets");
+                        $db->exec("TRUNCATE TABLE menu_items");
+                        $db->exec("TRUNCATE TABLE menu_categories");
+                        break;
+                    case 'tables':
+                        $db->exec("TRUNCATE TABLE qr_tables");
+                        // tables has self-referencing foreign key, delete in order or use truncate with checks off
+                        $db->exec("TRUNCATE TABLE tables");
+                        break;
+                    case 'sessions':
+                        $db->exec("TRUNCATE TABLE customer_sessions");
+                        break;
+                    case 'logs':
+                        $db->exec("TRUNCATE TABLE user_shifts");
+                        break;
+                }
+            }
+
+            $db->exec("SET FOREIGN_KEY_CHECKS = 1;");
+            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Hệ thống đã được dọn dẹp thành công!'];
+        } catch (Exception $e) {
+            $_SESSION['flash'] = ['type' => 'danger', 'message' => 'Lỗi dọn dẹp: ' . $e->getMessage()];
+        }
+
+        $this->redirect('/it/database/cleanup');
+    }
 }

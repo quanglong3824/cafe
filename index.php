@@ -115,11 +115,13 @@ $router->post('/it/users/store', 'SettingController', 'storeUser');
 $router->post('/it/users/update', 'SettingController', 'updateUser');
 $router->post('/it/users/delete', 'SettingController', 'deleteUser');
 
-// ── IT: Database Backup ───────────────────────────────────
+// ── IT: Database Backup & Cleanup ──────────────────────────
 $router->get('/it/database', 'SettingController', 'database');
 $router->get('/it/database/backup', 'SettingController', 'backup');
 $router->get('/it/database/download', 'SettingController', 'downloadBackup');
 $router->post('/it/database/delete', 'SettingController', 'deleteBackup');
+$router->get('/it/database/cleanup', 'SettingController', 'cleanupView');
+$router->post('/it/database/cleanup', 'SettingController', 'handleCleanup');
 
 // ── QR Ordering: Customer ──────────────────────────────────
 $router->get('/q', 'QrMenuController', 'shortLink');

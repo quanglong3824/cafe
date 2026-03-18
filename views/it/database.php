@@ -2,9 +2,14 @@
 <div class="card">
     <div class="card-header">
         <h2><i class="fas fa-database"></i> Quản lý Cơ sở dữ liệu</h2>
-        <a href="<?= BASE_URL ?>/it/database/backup" class="btn btn-gold">
-            <i class="fas fa-plus"></i> Tạo bản sao lưu mới
-        </a>
+        <div style="display:flex; gap:1rem;">
+            <a href="<?= BASE_URL ?>/it/database/cleanup" class="btn btn-danger-outline">
+                <i class="fas fa-broom"></i> Dọn dẹp CSDL
+            </a>
+            <a href="<?= BASE_URL ?>/it/database/backup" class="btn btn-gold">
+                <i class="fas fa-plus"></i> Tạo bản sao lưu mới
+            </a>
+        </div>
     </div>
     <div class="card-body" style="padding: 2rem;">
         <div class="row" style="display: flex; gap: 2rem; flex-wrap: wrap;">
