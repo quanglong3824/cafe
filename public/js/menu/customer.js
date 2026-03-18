@@ -290,7 +290,7 @@ function showItemDetail(item) {
     } else {
         imgContainer.style.backgroundImage = 'none';
         imgContainer.style.backgroundColor = '#f1f5f9';
-        imgContainer.innerHTML = '<i class="fas fa-coffee" style="font-size:3rem; color:#cbd5e1; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);"></i>';
+        imgContainer.innerHTML = '<i class="fas fa-utensils" style="font-size:3rem; color:#cbd5e1; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);"></i>';
     }
 
     updateDetailTotal();

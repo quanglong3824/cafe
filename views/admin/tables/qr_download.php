@@ -7,7 +7,7 @@
 
     <div class="qr-card-printable" id="printableArea">
         <div class="qr-card-header">
-            <i class="fas fa-coffee"></i>
+            <i class="fas fa-utensils"></i>
             <h2>AURORA</h2>
             <p>RESTAURANT</p>
         </div>

@@ -17,6 +17,8 @@ try {
     
     $sql = file_get_contents($sqlFile);
     
+    // Split SQL by semicolon, but careful with triggers/stored procedures if any
+    // For this simple script, splitting by ; is usually enough
     $queries = array_filter(array_map('trim', explode(';', $sql)));
     
     foreach ($queries as $query) {
@@ -26,8 +28,8 @@ try {
     }
     
     echo "Migration completed successfully! Menu is now Cafe-ready.\n";
-    echo "You can now delete this file (database/apply_cafe_data.php) for security.";
 } catch (Exception $e) {
     echo "Migration failed: " . $e->getMessage() . "\n";
     exit(1);
 }
+unlink(__FILE__); // Xóa tệp này sau khi chạy xong để bảo mật

@@ -189,7 +189,7 @@ if (!empty($items)) {
             <!-- Empty Items State -->
             <?php if (empty($items)): ?>
                 <div class="card text-center py-5 opacity-40 border-dashed">
-                    <i class="fas fa-coffee fa-3x mb-3"></i>
+                    <i class="fas fa-utensils fa-3x mb-3"></i>
                     <p class="fw-bold">Chưa chọn món nào</p>
                     <a href="<?= BASE_URL ?>/menu?table_id=<?= $table['id'] ?>&order_id=<?= $order['id'] ?>"
                         class="btn btn-gold mt-3">

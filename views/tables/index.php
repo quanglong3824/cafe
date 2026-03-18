@@ -93,7 +93,7 @@ function renderTableToken($t, $tableModel) {
             </div>
         </div>
         <div class="token-icon">
-            <i class="fas <?= $isOccupied ? 'fa-coffee' : 'fa-chair' ?>"></i>
+            <i class="fas <?= $isOccupied ? 'fa-utensils' : 'fa-chair' ?>"></i>
         </div>
     </div>
     <?php
@@ -138,7 +138,7 @@ function renderTableToken($t, $tableModel) {
     <!-- Summary Header -->
     <div class="summary-shelf d-flex gap-2 mb-4">
         <div class="summary-box glass occupied flex-grow-1">
-            <div class="box-icon"><i class="fas fa-coffee"></i></div>
+            <div class="box-icon"><i class="fas fa-utensils"></i></div>
             <div class="box-info">
                 <div class="val"><?= $occupiedCount ?></div>
                 <div class="lbl">ĐANG CÓ KHÁCH</div>

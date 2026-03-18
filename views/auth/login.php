@@ -26,7 +26,7 @@
         <!-- Logo -->
         <div class="auth-logo">
             <div class="auth-logo__icon" aria-hidden="true">
-                <i class="fas fa-coffee"></i>
+                <i class="fas fa-utensils"></i>
             </div>
             <h1 class="auth-logo__title">Aurora Cafe</h1>
             <p class="auth-logo__sub">Đăng nhập để tiếp tục</p>

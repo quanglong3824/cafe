@@ -46,7 +46,7 @@
         <!-- Sidebar Header -->
         <div class="sidebar-header">
             <div class="sidebar-logo">
-                <i class="fas fa-coffee"></i>
+                <i class="fas fa-utensils"></i>
                 <div>
                     <h2>Aurora</h2>
                     <p>Cafe Manager</p>
@@ -69,7 +69,7 @@
                 <div class="nav-section">
                     <div class="nav-section-title">Hệ thống</div>
                     <a href="<?= BASE_URL ?>/admin/menu" class="nav-item <?= activeClass('/admin/menu') ?>">
-                        <i class="fas fa-coffee"></i>
+                        <i class="fas fa-utensils"></i>
                         <span>Quản lý Món</span>
                     </a>
                     <a href="<?= BASE_URL ?>/admin/menu/sets" class="nav-item <?= activeClass('/admin/menu/sets') ?>"
