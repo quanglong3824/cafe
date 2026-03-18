@@ -1,126 +1,94 @@
 /* ============================================================
    auth.css — Login Screen
-   Aurora Cafe — Digital Menu & Order System
+   Aurora Cafe — Modern Luxury Theme
    ============================================================ */
 
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 :root {
-  --coffee-deep: #1a0f06;
-  --coffee-dark: #2d1b0d;
-  --crema: #c5a059;
-  --crema-light: #e9dcc9;
-
-  --bg: #1a0f06;
-  --surface: #2d1b0d;
-  --surface-2: #4b3621;
-  --border: rgba(197, 160, 89, 0.2);
-  --border-dim: rgba(255, 255, 255, 0.05);
-
-  --text: #fdfaf7;
-  --text-muted: #b8a691;
-  --text-dim: #8b735b;
-
-  --danger: #ef4444;
-  --danger-bg: rgba(239, 68, 68, 0.1);
-
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 28px;
-
-  --transition: 0.2s ease;
+    --coffee-deep:  #140a04;
+    --coffee-dark:  #2d1b0d;
+    --coffee-med:   #4b3621;
+    --crema:        #c5a059;
+    --crema-light:  #e9dcc9;
+    --bg:           #140a04;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: "Outfit", system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  background-image: radial-gradient(rgba(197, 160, 89, 0.05) 1px, transparent 1px);
-  background-size: 30px 30px;
+    font-family: "Outfit", system-ui, sans-serif;
+    background: var(--bg);
+    color: #fff;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(197, 160, 89, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(197, 160, 89, 0.1) 0%, transparent 40%);
 }
 
 .auth-card {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 3rem 2rem 2rem;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-  text-align: center;
+    position: relative; width: 100%; max-width: 440px;
+    background: var(--coffee-dark); border: 1px solid rgba(197, 160, 89, 0.2);
+    border-radius: 32px; padding: 48px 32px 32px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    text-align: center;
 }
 
 .auth-logo__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  background: var(--crema);
-  color: var(--coffee-dark);
-  border-radius: 20px;
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 84px; height: 84px; background: var(--crema);
+    color: var(--coffee-dark); border-radius: 24px;
+    font-size: 2.4rem; margin-bottom: 16px;
+    box-shadow: 0 12px 30px rgba(197, 160, 89, 0.3);
 }
 
 .auth-logo__title {
-  font-family: "Playfair Display", serif;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--crema);
+    font-family: "Playfair Display", serif; font-size: 2.2rem;
+    font-weight: 900; color: var(--crema); margin-bottom: 4px;
 }
 
+.auth-logo__sub {
+    font-size: 0.75rem; color: var(--crema-light);
+    text-transform: uppercase; letter-spacing: 4px; opacity: 0.7;
+}
+
+/* User Selection Chips */
+.user-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 32px 0; }
+
 .user-chip, .shift-chip {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-dim);
-  color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px; padding: 14px; color: var(--crema-light);
+    font-weight: 700; cursor: pointer; transition: all 0.3s;
 }
 
 .user-chip.is-selected, .shift-chip.is-selected {
-  background: rgba(197, 160, 89, 0.15);
-  border-color: var(--crema);
-  color: var(--crema);
+    background: rgba(197, 160, 89, 0.15); border-color: var(--crema);
+    color: var(--crema); box-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
 }
 
-.pin-dot.is-filled {
-  background: var(--crema);
-  border-color: var(--crema);
-  box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
-}
+/* Pin Pad */
+.pin-dots { display: flex; justify-content: center; gap: 15px; margin-bottom: 24px; }
+.pin-dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2); transition: all 0.2s; }
+.pin-dot.is-filled { background: var(--crema); border-color: var(--crema); box-shadow: 0 0 15px var(--crema); }
 
+.pin-pad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .pin-key {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-dim);
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 18px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 700; color: #fff; cursor: pointer; transition: all 0.2s;
 }
 
-.pin-key:hover {
-  border-color: var(--crema);
-  color: var(--crema);
-}
+.pin-key:hover { background: rgba(255,255,255,0.08); border-color: var(--crema); color: var(--crema); }
+.pin-key:active { transform: scale(0.9); }
 
+/* Login Button */
 .btn-login {
-  background: var(--crema);
-  color: var(--coffee-dark);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+    width: 100%; margin-top: 32px; padding: 18px;
+    background: var(--crema); color: var(--coffee-dark);
+    border: none; border-radius: 20px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+    box-shadow: 0 10px 25px rgba(197, 160, 89, 0.3); transition: all 0.3s;
 }
 
-.btn-login:hover {
-  transform: translateY(-3px);
-  background: var(--crema-light);
-}
+.btn-login:hover { transform: translateY(-3px); background: #fff; }
+.btn-login:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }

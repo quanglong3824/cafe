@@ -1,103 +1,85 @@
 /* ============================================================
    public.css — Public View Styles (dine-in menu page)
-   Aurora Cafe — Coffee & Wood Theme
+   Aurora Cafe — Modern Luxury Theme
    ============================================================ */
 
 :root {
-    --coffee-dark: #2d1b0d;
-    --coffee-med: #4b3621;
-    --crema: #c5a059;
-    --surface: #ffffff;
-    --bg: #fdfaf7;
+    --coffee-deep:  #140a04;
+    --coffee-rich:  #2d1b0d;
+    --crema:        #c5a059;
+    --surface:      #ffffff;
+    --bg:           #fdfaf7;
 }
 
 body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg);
-    color: #1a0f06;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 80px;
+    color: var(--coffee-deep);
+    margin: 0; padding: 0;
+    padding-bottom: 90px;
+    background-image: radial-gradient(#ede0cf 0.5px, transparent 0.5px);
+    background-size: 30px 30px;
 }
 
+/* ── Sticky Public Header ──────────────────────────────────── */
 .public-header {
-    background: var(--coffee-dark);
-    padding: 1.2rem;
+    background: var(--coffee-rich);
+    padding: 1.2rem 24px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
-    color: var(--bg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; color: var(--bg);
+    border-bottom: 2px solid var(--crema);
 }
 
 .public-logo {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--crema);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex: 1;
-    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900; color: var(--crema);
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px; flex: 1; font-family: 'Playfair Display', serif;
+    letter-spacing: -0.5px;
 }
 
-.public-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 15px;
-}
+.public-logo i { font-size: 1.6rem; filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.4)); }
 
 .table-info-badge {
-    background: var(--crema);
-    color: var(--coffee-dark);
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    flex-shrink: 0;
+    background: var(--crema); color: var(--coffee-deep);
+    padding: 8px 14px; border-radius: 12px;
+    font-size: 0.75rem; font-weight: 900;
+    display: inline-flex; align-items: center; gap: 6px;
+    white-space: nowrap; flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Floating Support Buttons */
+/* ── Floating Support Buttons ──────────────────────────────── */
 .support-fab-container {
-    position: fixed;
-    bottom: 120px;
-    right: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 999;
+    position: fixed; bottom: 130px; right: 20px;
+    display: flex; flex-direction: column; gap: 15px; z-index: 999;
 }
 
 .support-fab {
-    background: var(--surface);
-    color: var(--coffee-dark);
-    border: 1px solid var(--crema);
-    padding: 12px 18px;
-    border-radius: 14px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 8px 20px rgba(45, 27, 13, 0.1);
-    transition: all 0.2s ease;
+    background: #fff; color: var(--coffee-rich);
+    border: 1px solid var(--crema); padding: 14px 20px;
+    border-radius: 18px; font-weight: 800; font-size: 0.9rem;
+    cursor: pointer; display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 10px 25px rgba(20, 10, 4, 0.12);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.support-fab:active { transform: scale(0.95); }
+.support-fab:active { transform: scale(0.9); }
+.support-fab i { font-size: 1.1rem; color: var(--crema); }
 
 .support-fab-payment {
-    background: var(--coffee-dark);
-    color: var(--crema);
-    border-color: var(--coffee-dark);
+    background: var(--coffee-rich); color: var(--crema);
+    border-color: var(--coffee-rich);
+}
+
+.support-fab-payment i { color: var(--crema); }
+
+/* Mobile Optimization */
+@media (max-width: 480px) {
+    .public-header { padding: 1rem 16px; }
+    .public-logo { font-size: 1.2rem; }
+    .support-fab span { display: none; }
+    .support-fab { padding: 15px; border-radius: 50%; }
 }

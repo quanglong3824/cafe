@@ -1,201 +1,162 @@
 /* ============================================================
-   admin.css — Admin / IT Premium Layout
-   Aurora Cafe — Coffee & Wood Theme
+   admin.css — Admin / IT Premium Management Suite
+   Aurora Cafe — Elegant Coffee Business Theme
    ============================================================ */
 
-/* ── Reset & Root ──────────────────────────────────────────── */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 :root {
-  /* Brand Colors - Coffee & Wood */
-  --coffee-deep: #1a0f06;
-  --coffee-dark: #2d1b0d;
-  --coffee-med: #4b3621;
-  --crema: #c5a059;
-  --crema-light: #e9dcc9;
+    /* Brand Palette */
+    --coffee-deep:  #140a04;
+    --coffee-dark:  #2d1b0d;
+    --coffee-med:   #4b3621;
+    --crema:        #c5a059;
+    --crema-light:  #e9dcc9;
 
-  /* Backgrounds */
-  --bg: #fdfaf7;
-  --bg-card: #ffffff;
-  --bg-muted: #f3ece4;
-  --bg-overlay: rgba(253, 250, 247, 0.9);
+    /* Backgrounds */
+    --bg:           #fdfaf7;
+    --bg-card:      #ffffff;
+    --bg-muted:     #f3ece4;
+    --bg-overlay:   rgba(253, 250, 247, 0.95);
 
-  /* Text */
-  --text: #1a0f06;
-  --text-med: #4b3621;
-  --text-light: #8b735b;
-  --text-lighter: #b8a691;
+    /* Text */
+    --text:         #1a0f06;
+    --text-med:     #4b3621;
+    --text-light:   #8b735b;
+    --text-lighter: #b8a691;
 
-  /* Borders */
-  --border: #e9dcc9;
-  --border-coffee: rgba(45, 27, 13, 0.15);
+    /* Borders */
+    --border:       #e9dcc9;
+    --border-soft:  rgba(45, 27, 13, 0.08);
 
-  /* Status */
-  --success: #2d5a27;
-  --warning: #b45309;
-  --danger: #991b1b;
-  --info: #0369a1;
+    /* Status */
+    --success:      #2d5a27;
+    --warning:      #b45309;
+    --danger:       #991b1b;
+    --info:         #0369a1;
 
-  /* Layout & Glass */
-  --sidebar-w: 280px;
-  --topbar-h: 70px;
-  --glass: blur(15px) saturate(150%);
-
-  /* Shape */
-  --radius: 14px;
-  --radius-sm: 8px;
-  --radius-lg: 20px;
-
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(26, 15, 6, 0.05);
-  --shadow: 0 10px 30px rgba(26, 15, 6, 0.08);
-  --shadow-crema: 0 4px 15px rgba(197, 160, 89, 0.15);
-
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Layout & Shadow */
+    --sidebar-w:    280px;
+    --topbar-h:     70px;
+    --radius:       16px;
+    --radius-lg:    24px;
+    --shadow:       0 10px 35px -10px rgba(26, 15, 6, 0.12);
+    --shadow-sm:    0 4px 12px rgba(26, 15, 6, 0.05);
+    
+    --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  font-family: "Outfit", system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-  background-image: radial-gradient(var(--border) 0.5px, transparent 0.5px);
-  background-size: 40px 40px;
+    font-family: "Outfit", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    background-image: radial-gradient(var(--border) 0.5px, transparent 0.5px);
+    background-size: 40px 40px;
 }
 
-h1,
-h2,
-h3,
-h4,
-.playfair {
-  font-family: "Playfair Display", serif;
-}
+h1, h2, h3, h4, .playfair { font-family: "Playfair Display", serif; }
 
-/* ── Sidebar ──────────────────────────────────────────────── */
+/* ── Elegant Sidebar ───────────────────────────────────────── */
 .admin-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
-  background: var(--coffee-dark);
-  border-right: 1px solid var(--coffee-deep);
-  display: flex;
-  flex-direction: column;
-  z-index: 200;
-  transition: transform var(--transition);
-  color: var(--bg);
+    position: fixed; top: 0; left: 0; width: var(--sidebar-w); height: 100vh;
+    background: var(--coffee-dark); border-right: 1px solid var(--coffee-deep);
+    display: flex; flex-direction: column; z-index: 200; transition: transform var(--transition);
+    color: var(--bg); box-shadow: 10px 0 40px rgba(0,0,0,0.1);
 }
 
 .sidebar-header {
-  height: var(--topbar-h);
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    height: var(--topbar-h); display: flex; align-items: center; padding: 0 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.sidebar-logo i {
-  font-size: 1.6rem;
-  color: var(--crema);
-}
+.sidebar-logo i { font-size: 1.8rem; color: var(--crema); margin-right: 12px; filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.3)); }
+.sidebar-logo h2 { font-size: 1.4rem; font-weight: 900; color: var(--crema); letter-spacing: -0.5px; }
 
-.sidebar-logo h2 {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--crema);
-}
+.sidebar-nav { flex: 1; padding: 24px 16px; overflow-y: auto; }
 
-.nav-section-title {
-  color: var(--text-lighter);
-  opacity: 0.6;
-}
+.nav-section-title { padding: 0 16px 12px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--crema-light); opacity: 0.5; letter-spacing: 2px; }
 
 .nav-item {
-  color: var(--crema-light);
-  opacity: 0.8;
+    display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+    color: var(--crema-light); text-decoration: none; border-radius: 12px;
+    margin-bottom: 4px; transition: all var(--transition); opacity: 0.8;
 }
 
-.nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--crema);
-}
+.nav-item:hover { background: rgba(255, 255, 255, 0.05); color: var(--crema); opacity: 1; transform: translateX(5px); }
 
-.nav-item.active {
-  background: rgba(197, 160, 89, 0.15);
-  color: var(--crema);
-  border: 1px solid rgba(197, 160, 89, 0.2);
-}
+.nav-item.active { background: rgba(197, 160, 89, 0.15); color: var(--crema); border: 1px solid rgba(197, 160, 89, 0.2); opacity: 1; font-weight: 700; }
 
-/* ── Topbar ───────────────────────────────────────────────── */
+.nav-item i { font-size: 1.2rem; width: 24px; text-align: center; }
+
+/* ── Modern Top Bar ────────────────────────────────────────── */
 .admin-topbar {
-  background: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100; height: var(--topbar-h);
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; padding: 0 32px; gap: 20px;
 }
 
-/* ── Cards ────────────────────────────────────────────────── */
+.admin-topbar-title h1 { font-size: 1.5rem; font-weight: 900; color: var(--coffee-deep); }
+
+/* ── Content Layout ────────────────────────────────────────── */
+.admin-body { margin-left: var(--sidebar-w); min-height: 100vh; transition: margin-left var(--transition); }
+.admin-main { padding: 40px; max-width: 1400px; margin: 0 auto; }
+
+/* ── Dashboard Cards ───────────────────────────────────────── */
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
+    background: var(--bg-card); border-radius: var(--radius-lg);
+    border: 1px solid var(--border); padding: 30px; margin-bottom: 30px;
+    box-shadow: var(--shadow); transition: all 0.3s ease;
 }
 
-.card:hover {
-  border-color: var(--crema);
+.card:hover { border-color: var(--crema); transform: translateY(-5px); }
+
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-soft); }
+.card-header h2 { font-size: 1.3rem; font-weight: 900; color: var(--coffee-rich); }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-bottom: 32px; }
+
+.stat-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 24px; display: flex; align-items: center; gap: 20px; box-shadow: var(--shadow-sm);
 }
 
-/* ── Stats ────────────────────────────────────────────────── */
 .stat-icon {
-  background: var(--bg-muted);
-  border: 1px solid var(--border);
-  color: var(--coffee-med);
+    width: 64px; height: 64px; background: var(--bg-muted); border: 1px solid var(--border);
+    border-radius: 18px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; color: var(--coffee-med);
 }
 
-/* ── Buttons ──────────────────────────────────────────────── */
+.stat-value { font-size: 2rem; font-weight: 900; color: var(--coffee-deep); line-height: 1; }
+.stat-label { font-size: 0.75rem; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+/* ── UI Components ─────────────────────────────────────────── */
 .btn-gold {
-  background: var(--coffee-dark);
-  color: var(--crema);
-  border: 1px solid var(--crema);
+    background: var(--coffee-dark); color: var(--crema); border: 1px solid var(--crema);
+    padding: 12px 24px; border-radius: 12px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; cursor: pointer; transition: all 0.3s;
 }
 
-.btn-gold:hover {
-  background: var(--crema);
-  color: var(--coffee-dark);
+.btn-gold:hover { background: var(--crema); color: var(--coffee-dark); box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3); }
+
+/* Tables */
+.table-wrap { border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; background: #fff; }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--bg-muted); padding: 18px 24px; text-align: left; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-med); border-bottom: 1px solid var(--border); }
+td { padding: 18px 24px; border-bottom: 1px solid var(--border-soft); font-size: 0.95rem; }
+tbody tr:hover { background: var(--bg); }
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .admin-sidebar { transform: translateX(-100%); }
+    .admin-sidebar.is-open { transform: translateX(0); }
+    .admin-body { margin-left: 0; }
+    .admin-main { padding: 24px; }
+    .admin-topbar { padding: 0 20px; }
 }
 
-/* ── Tables ───────────────────────────────────────────────── */
-th {
-  background: var(--bg-muted);
-  color: var(--text-med);
-}
-
-/* ── Modals ──────────────────────────────────────────────── */
-.modal {
-    background: var(--bg-card);
-    border-top: 5px solid var(--crema);
-}
-
-.modal-header h3 { color: var(--coffee-dark); }
-
-/* ── Forms ────────────────────────────────────────────────── */
-.form-control {
-    background: white;
-    border: 1px solid var(--border);
-}
-
-.form-control:focus {
-    border-color: var(--coffee-med);
-    box-shadow: 0 0 0 3px rgba(75, 54, 33, 0.1);
-}
+/* ── Scrollbars ────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: var(--crema); border-radius: 10px; }
