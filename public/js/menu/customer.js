@@ -42,6 +42,13 @@ function checkLocation() {
     const btn = document.getElementById('btnAllowLocation');
     const errorEl = document.getElementById('locationError');
 
+    // Check if already verified in this session
+    if (sessionStorage.getItem('location_verified') === 'true') {
+        overlay.style.display = 'none';
+        wrapper.style.display = 'block';
+        return;
+    }
+
     btn.addEventListener('click', () => {
         btn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i> ${__('authenticating')}`;
         btn.disabled = true;
@@ -75,6 +82,7 @@ function checkLocation() {
                     showLocError(__('too_far', { distance: Math.round(distance) }));
                 } else {
                     // Success!
+                    sessionStorage.setItem('location_verified', 'true');
                     overlay.style.transition = 'opacity 0.5s';
                     overlay.style.opacity = '0';
                     setTimeout(() => {
