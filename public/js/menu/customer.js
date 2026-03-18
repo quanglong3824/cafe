@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCategoryNav();
     setupSearch();
     updateCartUI();
+    startCartPolling();
     
     // Trigger language spotlight
     const spotlight = document.getElementById('langSelectionFocus');
@@ -247,6 +248,39 @@ function saveCart() {
     updateCartUI();
 }
 
+/** Sync item to server */
+async function syncItemToServer(item) {
+    try {
+        const formData = new FormData();
+        formData.append('item_id', item.id);
+        formData.append('quantity', item.quantity);
+        formData.append('note', item.note || '');
+
+        await fetch(`${CUSTOMER_CONFIG.baseUrl}/qr/cart/sync-draft`, {
+            method: 'POST',
+            body: formData
+        });
+    } catch (e) {
+        console.error("Sync error:", e);
+    }
+}
+
+/** Sync removal to server */
+async function syncRemoveFromServer(menuItemId, note) {
+    try {
+        const formData = new FormData();
+        formData.append('menu_item_id', menuItemId);
+        formData.append('note', note || '');
+
+        await fetch(`${CUSTOMER_CONFIG.baseUrl}/qr/cart/remove-item`, {
+            method: 'POST',
+            body: formData
+        });
+    } catch (e) {
+        console.error("Remove sync error:", e);
+    }
+}
+
 function updateCartUI() {
     const cartBar = document.getElementById('cartBar');
     const cartCount = document.getElementById('cartCount');
@@ -268,11 +302,15 @@ function updateCartUI() {
 }
 
 function quickAdd(id, name, price) {
+    markInteraction();
     const existing = cart.find(item => item.id === id && !item.note);
     if (existing) {
         existing.quantity++;
+        syncItemToServer(existing);
     } else {
-        cart.push({ id, name, price, quantity: 1, note: '' });
+        const newItem = { id, name, price, quantity: 1, note: '' };
+        cart.push(newItem);
+        syncItemToServer(newItem);
     }
     saveCart();
     showToast(__('added_item', { name }));
@@ -360,14 +398,17 @@ function updateDetailTotal() {
 }
 
 function addFromDetail() {
+    markInteraction();
     currentItem.note = document.getElementById('detailNote').value.trim();
     
     // Find item with SAME ID and SAME NOTE
     const existing = cart.find(item => item.id === currentItem.id && item.note === currentItem.note);
     if (existing) {
         existing.quantity += currentItem.quantity;
+        syncItemToServer(existing);
     } else {
         cart.push({ ...currentItem });
+        syncItemToServer(currentItem);
     }
     
     saveCart();
@@ -432,10 +473,17 @@ function updateCartModal() {
 }
 
 function changeCartQty(index, delta) {
-    cart[index].quantity += delta;
-    if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
+    markInteraction();
+    const item = cart[index];
+    item.quantity += delta;
+    
+    if (item.quantity <= 0) {
+        const removedItem = cart.splice(index, 1)[0];
+        syncRemoveFromServer(removedItem.id, removedItem.note);
+    } else {
+        syncItemToServer(item);
     }
+    
     saveCart();
     if (cart.length === 0) {
         toggleCartModal();
@@ -507,6 +555,53 @@ async function callWaiter(type) {
     } catch (e) {
         alert(__('conn_error'));
     }
+}
+
+// Polling state
+let lastCartHash = '';
+let isUserInteracting = false;
+let interactionTimeout = null;
+
+function startCartPolling() {
+    setInterval(async () => {
+        // Don't sync if user is currently interacting or if a modal is open
+        const isDetailOpen = !document.getElementById('itemDetailModal').classList.contains('hidden');
+        if (isUserInteracting || isDetailOpen) return;
+
+        try {
+            const response = await fetch(`${CUSTOMER_CONFIG.baseUrl}/qr/cart/get-drafts`);
+            const data = await response.json();
+            
+            if (data.success) {
+                const serverCart = data.items;
+                const currentHash = JSON.stringify(serverCart);
+                
+                if (lastCartHash !== '' && lastCartHash !== currentHash) {
+                    // Cart changed on server (e.g. by waiter or other device)
+                    cart = serverCart;
+                    saveCartLocalOnly(); // Save without re-syncing to avoid loops
+                }
+                lastCartHash = currentHash;
+            }
+        } catch (e) {
+            console.error("Cart polling error:", e);
+        }
+    }, 5000);
+}
+
+/** Save to local storage and update UI without triggering a server sync */
+function saveCartLocalOnly() {
+    localStorage.setItem(`cart_table_${CUSTOMER_CONFIG.tableId}`, JSON.stringify(cart));
+    updateCartUI();
+}
+
+/** Mark user as interacting to pause polling */
+function markInteraction() {
+    isUserInteracting = true;
+    if (interactionTimeout) clearTimeout(interactionTimeout);
+    interactionTimeout = setTimeout(() => {
+        isUserInteracting = false;
+    }, 3000);
 }
 
 // Close modals when clicking backdrop

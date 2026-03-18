@@ -148,6 +148,46 @@ class Order extends Model
         }
     }
 
+    /** Đồng bộ món từ khách hàng (Set chính xác số lượng) */
+    public function syncItem(int $orderId, array $data): void
+    {
+        $menuItemId = $data['menu_item_id'];
+        $qty = (int)$data['quantity'];
+        $note = $data['note'] ?? '';
+        $status = $data['status'] ?? 'draft';
+        $customerId = $data['customer_id'] ?? null;
+
+        if ($qty <= 0) {
+            $this->execute(
+                "DELETE FROM order_items WHERE order_id = ? AND menu_item_id = ? AND note = ? AND status = ?",
+                [$orderId, $menuItemId, $note, $status]
+            );
+            return;
+        }
+
+        $existing = $this->findOne(
+            "SELECT id FROM order_items WHERE order_id = ? AND menu_item_id = ? AND note = ? AND status = ?",
+            [$orderId, $menuItemId, $note, $status]
+        );
+
+        if ($existing) {
+            $this->execute(
+                "UPDATE order_items SET quantity = ? WHERE id = ?",
+                [$qty, $existing['id']]
+            );
+        } else {
+            $menuItem = $this->findOne("SELECT name, price FROM menu_items WHERE id = ?", [$menuItemId]);
+            $order = $this->findById($orderId);
+            $tableId = $order ? $order['table_id'] : null;
+
+            $this->execute(
+                "INSERT INTO order_items (order_id, table_id, menu_item_id, item_name, item_price, quantity, note, status, customer_id)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                [$orderId, $tableId, $menuItemId, $menuItem['name'], $menuItem['price'], $qty, $note, $status, $customerId]
+            );
+        }
+    }
+
     /** Cập nhật số lượng, nếu = 0 thì xóa */
     public function updateItem(int $itemId, int $qty): void
     {
@@ -229,11 +269,11 @@ class Order extends Model
         $this->execute("UPDATE orders SET is_realtime_hidden = 1 WHERE id = ?", [$orderId]);
     }
 
-    /** Xác nhận các món Draft thành Confirmed (Gửi bếp) */
+    /** Xác nhận các món Draft hoặc Pending thành Confirmed (Gửi bếp) */
     public function confirmItems(int $orderId): void
     {
         $this->execute(
-            "UPDATE order_items SET status = 'confirmed' WHERE order_id = ? AND status = 'draft'",
+            "UPDATE order_items SET status = 'confirmed' WHERE order_id = ? AND (status = 'draft' OR status = 'pending')",
             [$orderId]
         );
     }

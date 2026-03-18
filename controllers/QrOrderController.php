@@ -35,94 +35,133 @@ class QrOrderController extends Controller
         return $_SESSION['customer_table_id'];
     }
 
+    /** Sync single item from customer cart to server as draft */
+    public function syncDraft(): void
+    {
+        $tableId = $this->requireCustomer();
+        $currentSessionId = session_id();
+        $itemId = (int)$this->input('item_id');
+        $quantity = (int)$this->input('quantity', 1);
+        $note = $this->input('note', '');
+
+        if ($itemId <= 0) {
+            $this->json(['error' => 'Món không hợp lệ'], 400);
+            return;
+        }
+
+        try {
+            // Find or create order
+            $order = $this->orderModel->findOpenOrderByTable($tableId);
+            if (!$order) {
+                $this->tableModel->open($tableId);
+                $orderId = $this->orderModel->create([
+                    'table_id' => $tableId,
+                    'order_source' => 'customer_qr',
+                    'session_id' => $currentSessionId,
+                    'status' => 'open'
+                ]);
+            } else {
+                $orderId = $order['id'];
+            }
+
+            // Sync item as DRAFT
+            // Use syncItem instead of addItem to set exact quantity
+            $this->orderModel->syncItem($orderId, [
+                'menu_item_id' => $itemId,
+                'quantity' => $quantity,
+                'note' => $note,
+                'status' => 'draft',
+                'customer_id' => $currentSessionId
+            ]);
+
+            $this->json(['success' => true]);
+        } catch (Exception $e) {
+            $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    /** Remove item from draft (sync delete) */
+    public function removeItem(): void
+    {
+        $tableId = $this->requireCustomer();
+        $menuItemId = (int)$this->input('menu_item_id');
+        $note = $this->input('note', '');
+
+        try {
+            $order = $this->orderModel->findOpenOrderByTable($tableId);
+            if ($order) {
+                // Find and delete the specific DRAFT item
+                $this->db->execute(
+                    "DELETE FROM order_items WHERE order_id = ? AND menu_item_id = ? AND note = ? AND status = 'draft'",
+                    [$order['id'], $menuItemId, $note]
+                );
+            }
+            $this->json(['success' => true]);
+        } catch (Exception $e) {
+            $this->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
     /** Submit customer order */
     public function submit(): void
     {
         $tableId = $this->requireCustomer();
         $currentSessionId = session_id();
-        $cartData = json_decode($_POST['cart'] ?? '[]', true);
-        $notes = $_POST['notes'] ?? '';
-
-        if (empty($cartData)) {
-            $this->json(['error' => 'Giỏ hàng trống'], 400);
-            return;
-        }
-
+        
         try {
-            // Check table status
-            $table = $this->tableModel->findById($tableId);
-            if (!$table) {
-                $this->json(['error' => 'Không tìm thấy bàn'], 404);
+            $order = $this->orderModel->findOpenOrderByTable($tableId);
+            if (!$order) {
+                $this->json(['error' => 'Không tìm thấy order để xác nhận'], 404);
                 return;
             }
 
-            // Check if open order exists
-            $order = $this->orderModel->findOpenOrderByTable($tableId);
-            $isNewOrder = false;
-
-            if (!$order) {
-                // Check if table is occupied (but no order? possible if waiter manually opened it)
-                // If it is available, we open it
-                if ($table['status'] === 'available') {
-                    $this->tableModel->open($tableId);
-                }
-
-                // Create new order with session_id
-                $orderId = $this->orderModel->create([
-                    'table_id' => $tableId,
-                    'guest_count' => (int)($_POST['guest_count'] ?? 1),
-                    'note' => $notes,
-                    'order_source' => 'customer_qr',
-                    'session_id' => $currentSessionId,
-                    'status' => 'open'
-                ]);
-                $isNewOrder = true;
-            } else {
-                // If table is occupied, but this session is different from the one that opened the order
-                // Allow it IF it is a new scan at the table, but we should be careful.
-                // For simplicity, if they have a valid qr_token in session, we allow them to join.
-                $orderId = $order['id'];
-                
-                // If the session_id is different, we could block it if we want strict anti-spam
-                // but that would prevent a group of friends from ordering together.
-                // So we allow it as long as they have the correct qr_token (meaning they scanned the QR).
-                
-                // Append notes if any
-                if ($notes) {
-                    $this->orderModel->appendNote($orderId, $notes);
-                }
-            }
-
-            // Add items to order
-            foreach ($cartData as $item) {
-                $this->orderModel->addItem($orderId, [
-                    'menu_item_id' => $item['id'],
-                    'quantity' => $item['quantity'],
-                    'note' => $item['note'] ?? '',
-                    'status' => 'pending',
-                    'customer_id' => $currentSessionId,
-                    'submitted_at' => date('Y-m-d H:i:s')
-                ]);
-            }
+            // Convert all DRAFT items from this customer to PENDING
+            $this->orderModel->confirmItemsToPending($order['id']);
 
             // Create notification for waiters
+            $table = $this->tableModel->findById($tableId);
             $this->notifModel->create([
-                'order_id' => $orderId,
+                'order_id' => $order['id'],
                 'table_id' => $tableId,
-                'notification_type' => $isNewOrder ? 'new_order' : 'order_item',
-                'title' => $isNewOrder ? "Bàn " . ($table['name'] ?? $tableId) . ": Order mới" : "Bàn " . ($table['name'] ?? $tableId) . ": Thêm món mới",
-                'message' => $isNewOrder ? "Khách đã gửi order mới qua QR." : "Khách đã gửi thêm món qua QR."
+                'notification_type' => 'order_item',
+                'title' => "Bàn " . ($table['name'] ?? $tableId) . ": Order mới",
+                'message' => "Khách vừa chốt danh sách món qua QR."
             ]);
 
             $this->json([
                 'success' => true, 
-                'order_id' => $orderId, 
                 'message' => 'Gửi order thành công! Vui lòng chờ nhân viên xác nhận.'
             ]);
 
         } catch (Exception $e) {
             $this->json(['error' => 'Lỗi xử lý order: ' . $e->getMessage()], 500);
         }
+    }
+
+    /** Get current draft items for this table/session */
+    public function getDrafts(): void
+    {
+        $tableId = $this->requireCustomer();
+        $order = $this->orderModel->findOpenOrderByTable($tableId);
+        
+        if (!$order) {
+            $this->json(['success' => true, 'items' => []]);
+            return;
+        }
+
+        $items = $this->orderModel->getItems($order['id']);
+        $drafts = array_filter($items, fn($it) => $it['status'] === 'draft');
+        
+        // Reformat to match customer cart structure
+        $formattedDrafts = array_map(fn($it) => [
+            'id' => (int)$it['menu_item_id'],
+            'name' => $it['item_name'],
+            'price' => (float)$it['item_price'],
+            'quantity' => (int)$it['quantity'],
+            'note' => $it['note']
+        ], array_values($drafts));
+
+        $this->json(['success' => true, 'items' => $formattedDrafts]);
     }
 
     /** View order status */

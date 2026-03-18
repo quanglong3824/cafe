@@ -3,7 +3,25 @@
 // Aurora Cafe — Professional Waiter Interface
 // ============================================================
 
+// Global polling state
+let lastItemsHash = null;
+const POLL_INTERVAL = 4000;
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Initial setup for polling
+    const orderIdInput = document.querySelector('input[name="order_id"]');
+    if (orderIdInput && orderIdInput.value) {
+        // Calculate initial hash from existing items in DOM or fetch once
+        fetch(ORDERS_CONFIG.baseUrl + '/orders/get-detail?id=' + orderIdInput.value)
+            .then(r => r.json())
+            .then(data => {
+                if (data.ok) {
+                    lastItemsHash = generateHash(data.items);
+                }
+                startPolling(orderIdInput.value);
+            });
+    }
+
     // Handle guest count update button
     const updateGuestBtn = document.querySelector('.btn-gold[onclick*="submitGuestCountUpdate"]');
     if (updateGuestBtn) {
@@ -254,4 +272,32 @@ function showAlert(message, type) {
             if (alertDiv.parentNode) alertDiv.remove();
         }, 400);
     }, 3000);
+}
+
+/** Real-time Polling Logic */
+function startPolling(orderId) {
+    setInterval(() => {
+        // Only poll if not currently performing an action
+        if (document.querySelector('.fa-spinner')) return;
+
+        fetch(ORDERS_CONFIG.baseUrl + '/orders/get-detail?id=' + orderId)
+            .then(r => r.json())
+            .then(data => {
+                if (data.ok) {
+                    const currentHash = generateHash(data.items);
+                    if (lastItemsHash !== null && lastItemsHash !== currentHash) {
+                        console.log('Order items changed, reloading view...');
+                        location.reload();
+                    }
+                    lastItemsHash = currentHash;
+                }
+            })
+            .catch(err => console.error('Polling error:', err));
+    }, POLL_INTERVAL);
+}
+
+/** Generate a simple hash to detect content changes */
+function generateHash(items) {
+    if (!items) return '';
+    return items.map(it => `${it.id}-${it.quantity}-${it.status}-${it.note}`).join('|');
 }
