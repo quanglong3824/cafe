@@ -11,6 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCategoryNav();
     setupSearch();
     updateCartUI();
+    
+    // Trigger language spotlight
+    const spotlight = document.getElementById('langSelectionFocus');
+    if (spotlight && !localStorage.getItem('lang_prompt_seen')) {
+        setTimeout(() => {
+            spotlight.classList.add('highlight');
+            // Remove highlight after 4 seconds
+            setTimeout(() => {
+                spotlight.classList.remove('highlight');
+                localStorage.setItem('lang_prompt_seen', 'true');
+            }, 4000);
+        }, 800);
+    }
 });
 
 function checkLocation() {

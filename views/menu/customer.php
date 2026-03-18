@@ -12,9 +12,15 @@
             <p class="subtitle"><?= __('location_check_subtitle') ?></p>
         </div>
 
-        <div class="lang-switcher">
-            <a href="<?= updateUrlParam('lang', 'vi') ?>" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
-            <a href="<?= updateUrlParam('lang', 'en') ?>" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
+        <div class="lang-selection-focus" id="langSelectionFocus">
+            <div class="lang-prompt">
+                <span class="vi">Vui lòng chọn ngôn ngữ</span>
+                <span class="en">Please choose your language</span>
+            </div>
+            <div class="lang-switcher">
+                <a href="<?= updateUrlParam('lang', 'vi') ?>" onclick="localStorage.removeItem('lang_prompt_seen')" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
+                <a href="<?= updateUrlParam('lang', 'en') ?>" onclick="localStorage.removeItem('lang_prompt_seen')" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
+            </div>
         </div>
         
         <div class="location-body">
@@ -44,6 +50,26 @@
 </div>
 
 <style>
+    /* Spotlight Effect for Language Selection */
+    .lang-selection-focus {
+        position: relative; padding: 15px; border-radius: 20px;
+        transition: all 0.5s ease; z-index: 10001;
+        margin: -10px -10px 15px;
+    }
+    .lang-selection-focus.highlight {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 0 5000px rgba(0, 0, 0, 0.85), 0 0 25px var(--gold);
+        transform: scale(1.05);
+    }
+    .lang-prompt {
+        display: none; flex-direction: column; align-items: center; 
+        margin-bottom: 12px; font-weight: 600; text-align: center;
+        animation: fadeIn 0.3s forwards;
+    }
+    .lang-selection-focus.highlight .lang-prompt { display: flex; }
+    .lang-prompt .vi { color: #fff; font-size: 0.85rem; }
+    .lang-prompt .en { color: var(--gold); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+
     /* Language Switcher */
     .lang-switcher {
         display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;

@@ -66,5 +66,6 @@
   "status_cooking": "Đang chế biến",
   "status_served": "Đã phục vụ",
   "status_cancelled": "Đã hủy",
-  "order_more": "Gọi thêm món"
+  "order_more": "Gọi thêm món",
+  "choose_language": "Vui lòng chọn ngôn ngữ của bạn"
 }

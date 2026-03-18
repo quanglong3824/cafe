@@ -66,5 +66,6 @@
   "status_cooking": "Cooking",
   "status_served": "Served",
   "status_cancelled": "Cancelled",
-  "order_more": "Order more"
+  "order_more": "Order more",
+  "choose_language": "Please choose your language"
 }
