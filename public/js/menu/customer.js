@@ -22,14 +22,24 @@ function checkLocation() {
     btn.addEventListener('click', () => {
         btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> ĐANG XÁC THỰC...';
         btn.disabled = true;
+        errorEl.style.display = 'none';
+
+        // Bảo hiểm: Nếu sau 20 giây vẫn chưa có phản hồi từ trình duyệt, cho phép thử lại
+        const safetyTimer = setTimeout(() => {
+            if (btn.disabled) {
+                showLocError("Yêu cầu định vị mất quá nhiều thời gian. Vui lòng kiểm tra cài đặt GPS và thử lại.");
+            }
+        }, 20000);
 
         if (!navigator.geolocation) {
+            clearTimeout(safetyTimer);
             showLocError("Trình duyệt của bạn không hỗ trợ định vị. Vui lòng sử dụng trình duyệt khác (Chrome, Safari).");
             return;
         }
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
+                clearTimeout(safetyTimer);
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
                 const distance = calculateDistance(
@@ -37,8 +47,6 @@ function checkLocation() {
                     CUSTOMER_CONFIG.restaurantCoords.lat, 
                     CUSTOMER_CONFIG.restaurantCoords.lng
                 );
-
-
 
                 if (distance > CUSTOMER_CONFIG.maxDistance) {
                     showLocError(`Bạn đang ở quá xa nhà hàng (${Math.round(distance)}m). Vui lòng quét mã tại bàn để đặt món.`);
@@ -53,16 +61,28 @@ function checkLocation() {
                 }
             },
             (err) => {
+                clearTimeout(safetyTimer);
                 let msg = "Không thể lấy vị trí. ";
                 switch(err.code) {
-                    case err.PERMISSION_DENIED: msg += "Vui lòng cho phép truy cập vị trí trong cài đặt trình duyệt."; break;
-                    case err.POSITION_UNAVAILABLE: msg += "Thông tin vị trí không khả dụng."; break;
-                    case err.TIMEOUT: msg += "Yêu cầu lấy vị trí hết hạn."; break;
-                    default: msg += "Lỗi không xác định.";
+                    case err.PERMISSION_DENIED: 
+                        msg = "Bạn đã từ chối quyền truy cập vị trí. Vui lòng bật lại trong cài đặt trình duyệt hoặc quét lại mã QR."; 
+                        break;
+                    case err.POSITION_UNAVAILABLE: 
+                        msg = "Không thể xác định vị trí. Vui lòng đảm bảo đã bật GPS."; 
+                        break;
+                    case err.TIMEOUT: 
+                        msg = "Hết thời gian yêu cầu vị trí. Vui lòng thử lại ở nơi có sóng tốt hơn."; 
+                        break;
+                    default: 
+                        msg += "Lỗi không xác định: " + err.message;
                 }
                 showLocError(msg);
             },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            { 
+                enableHighAccuracy: true, 
+                timeout: 15000, 
+                maximumAge: 0 
+            }
         );
     });
 

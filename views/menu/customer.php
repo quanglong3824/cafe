@@ -28,6 +28,11 @@
             <button id="btnAllowLocation" class="btn-gold-premium w-100">
                 <i class="fas fa-location-arrow me-2"></i> BẮT ĐẦU TRẢI NGHIỆM
             </button>
+            <?php if (Auth::isIT()): ?>
+                <button onclick="document.getElementById('locationOverlay').style.display='none'; document.getElementById('menuWrapper').style.display='block';" class="btn-ghost w-100 mt-2" style="color:#94a3b8; font-size:0.75rem; border:none; background:none; cursor:pointer;">
+                    BỎ QUA XÁC THỰC (DÀNH CHO IT)
+                </button>
+            <?php endif; ?>
             <p class="privacy-note">Bằng cách tiếp tục, bạn đồng ý với chính sách bảo mật của chúng tôi.</p>
         </div>
     </div>
@@ -384,8 +389,8 @@
         isIT: <?= Auth::isIT() ? 'true' : 'false' ?>,
         hasItems: <?= $hasItems ? 'true' : 'false' ?>,
         restaurantCoords: {
-            lat: <?= RESTAURANT_LAT ?>,
-            lng: <?= RESTAURANT_LNG ?>
+            lat: <?= CAFE_LAT ?>,
+            lng: <?= CAFE_LNG ?>
         },
         maxDistance: <?= MAX_ORDER_DISTANCE ?>
     };
