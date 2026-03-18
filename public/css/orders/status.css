@@ -143,29 +143,53 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 20px;
 }
 
 .btn-gold, .btn-outline {
     width: 100%;
-    padding: 15px;
-    border-radius: 12px;
+    padding: 16px;
+    border-radius: 16px;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     font-family: inherit;
     border: none;
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .btn-gold {
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
     color: white;
-    box-shadow: 0 4px 12px var(--gold-glow);
+    box-shadow: 0 10px 20px -5px rgba(184, 134, 11, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-gold:active {
+    transform: scale(0.97);
+    box-shadow: 0 5px 10px -3px rgba(184, 134, 11, 0.4);
 }
 
 .btn-outline {
-    background: transparent;
-    border: 1px solid var(--gold);
+    background: white;
+    border: 2px solid var(--gold-light);
     color: var(--gold-dark);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.btn-outline:active {
+    background: var(--bg);
+    transform: scale(0.97);
+}
+
+.btn-gold i, .btn-outline i {
+    font-size: 1.1rem;
 }
