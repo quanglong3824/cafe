@@ -1,0 +1,401 @@
+/* ============================================================
+   auth.css — Login Screen
+   Aurora Restaurant — Digital Menu & Order System
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #d4af37;
+  --gold-dark: #b8941f;
+  --gold-light: rgba(212, 175, 55, 0.12);
+  --gold-glow: rgba(212, 175, 55, 0.3);
+
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface-2: #22263a;
+  --border: rgba(212, 175, 55, 0.18);
+  --border-dim: rgba(255, 255, 255, 0.08);
+
+  --text: #f1f1f1;
+  --text-muted: #9ca3af;
+  --text-dim: #6b7280;
+
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --danger-border: rgba(239, 68, 68, 0.3);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --transition: 0.15s ease;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Outfit", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+.auth-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 0%, rgba(212, 175, 55, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 100%, rgba(212, 175, 55, 0.05) 0%, transparent 60%);
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 1.75rem 1.75rem;
+  box-shadow:
+    0 0 0 1px rgba(212, 175, 55, 0.04),
+    0 24px 64px rgba(0, 0, 0, 0.5),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.auth-logo {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-logo__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  border-radius: var(--radius-lg);
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 0.9rem;
+  box-shadow: 0 8px 24px var(--gold-glow);
+}
+
+.auth-logo__title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: -0.5px;
+}
+
+.auth-logo__sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.auth-alert--error {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-border);
+  color: #fca5a5;
+}
+
+.field-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.user-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text);
+  font-family: inherit;
+  transition: all var(--transition);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-chip:hover, .shift-chip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-light);
+}
+
+.user-chip.is-selected, .shift-chip.is-selected {
+  background: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 600;
+  box-shadow: 0 0 12px var(--gold-glow);
+}
+
+.shift-chip {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid var(--border-dim);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 0.6rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  font-family: inherit;
+  transition: all var(--transition);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.shift-chip small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.shift-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.pin-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  transition: all 0.15s;
+}
+
+.pin-dot.is-filled {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+.pin-key {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid var(--border-dim);
+  border-radius: var(--radius-md);
+  aspect-ratio: 1;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pin-key:hover {
+  background: var(--gold-light);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.pin-key:active {
+  transform: scale(0.9);
+  background: var(--gold);
+  color: #fff;
+}
+
+.pin-key--del {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.pin-key--del:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.pin-key--zero {
+  grid-column: 2;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.95rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px var(--gold-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-login::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-login:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--gold-glow);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+.btn-login:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-login.loading {
+  pointer-events: none;
+  color: transparent;
+}
+
+.btn-login.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.u-hidden {
+  display: none !important;
+}
+
+@media (min-width: 480px) {
+  .auth-card {
+    padding: 2.5rem 2.25rem 1.75rem;
+  }
+  .user-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-card {
+    max-width: 440px;
+    padding: 2.75rem 2.5rem 2rem;
+  }
+  .pin-key {
+    font-size: 1.25rem;
+  }
+  .auth-logo__icon {
+    width: 76px;
+    height: 76px;
+    font-size: 2rem;
+  }
+  .auth-logo__title {
+    font-size: 1.55rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .auth-card {
+    max-width: 420px;
+  }
+}

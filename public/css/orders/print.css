@@ -1,0 +1,160 @@
+/* ============================================================
+   orders-print.css — Thermal Printer Receipt (80mm)
+   Aurora Restaurant — Professional Receipt Design
+   ============================================================ */
+
+@page {
+    margin: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    color: #000;
+    background: #fff;
+    margin: 0;
+    padding: 15px;
+    width: 80mm;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.font-bold { font-weight: bold; }
+.strong { font-weight: bold; }
+
+.mb-1 { margin-bottom: 5px; }
+.mb-2 { margin-bottom: 10px; }
+.mb-3 { margin-bottom: 15px; }
+
+.divider {
+    border-top: 1px dashed #000;
+    margin: 10px 0;
+}
+
+/* Header */
+.header h1 {
+    font-size: 16px;
+    margin: 0 0 5px;
+    text-transform: uppercase;
+}
+
+.header p {
+    margin: 0;
+    font-size: 11px;
+}
+
+/* Meta Info */
+.meta-info {
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th {
+    border-bottom: 1px dashed #000;
+    padding-bottom: 5px;
+    text-align: left;
+    font-size: 11px;
+}
+
+td {
+    padding: 4px 0;
+    vertical-align: top;
+    font-size: 11px;
+}
+
+.col-qty { width: 20%; text-align: center; }
+.col-price { width: 25%; text-align: right; }
+.col-total { width: 25%; text-align: right; }
+
+.total-row {
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+/* Payment Status Badge */
+.payment-good {
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    color: #000;
+    border: 2px solid #000;
+    padding: 5px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.payment-pending {
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    color: #000;
+    border: 1px solid #000;
+    padding: 5px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.payment-note {
+    font-size: 10px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* Payment Status Badge - inline styles from PHP */
+.payment-good {
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    color: #000;
+    border: 2px solid #000;
+    padding: 5px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.payment-pending {
+    font-size: 13px;
+    margin-top: 10px;
+    text-align: center;
+    color: #000;
+    border: 1px solid #000;
+    padding: 5px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.payment-status {
+    font-size: 11px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Print specific */
+@media print {
+    body { width: 80mm; padding: 15px; }
+    .header { margin-bottom: 10px; }
+    .divider { border-top: 1px dashed #000; }
+    .footer { page-break-after: avoid; }
+}

@@ -1,0 +1,208 @@
+/* ============================================================
+   tables.css — Floor Plan Table Layout
+   Aurora Restaurant — Luxury White & Gold Theme
+   ============================================================ */
+
+/* Area Group Title */
+.area-group-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.summary-shelf { margin-inline: -0.25rem; }
+
+.summary-box {
+    flex: 1;
+    background: white;
+    padding: 1.25rem;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e8f0;
+}
+
+.summary-box .box-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.summary-box.available .box-icon {
+    background: #ecfdf5;
+    color: #10b981;
+}
+
+.summary-box.occupied .box-icon {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.summary-box .val {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1;
+}
+
+.summary-box .lbl {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 2px;
+}
+
+.area-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.title-accent {
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 4px;
+    border-radius: 2px;
+    background: #b89B5e;
+}
+
+/* Table Token */
+.table-token {
+    background: white;
+    border-radius: 14px;
+    height: 110px;
+    position: relative;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    justify-content: space-between;
+}
+
+.table-token:active { transform: scale(0.96); }
+
+.table-token.available::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #10b981;
+}
+
+.table-token.occupied::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #ef4444;
+}
+
+.table-token.occupied { background: #fff; }
+
+.table-token.merged-child::before {
+    background: repeating-linear-gradient(90deg, #b89B5e, #b89B5e 10px, transparent 10px, transparent 20px);
+    height: 4px;
+}
+
+.table-token .token-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1e293b;
+}
+
+.table-token .token-meta {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table-token .token-icon {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    font-size: 3rem;
+    opacity: 0.05;
+    transform: rotate(-15deg);
+}
+
+.table-token.occupied .token-icon { opacity: 0.05; color: #ef4444; }
+
+.master-badge {
+    background: #b89B5e;
+    color: white;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-size: 0.6rem;
+}
+
+/* Guest Selector */
+.guest-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.guest-option input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.guest-option span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.guest-option input:checked + span {
+    background: #b89B5e;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Alert Premium */
+.alert-premium {
+    background: rgba(184, 155, 94, 0.08);
+    border: 1px solid rgba(184, 155, 94, 0.3);
+    border-radius: 14px;
+    padding: 1rem;
+}
+
+.tiny { font-size: 0.65rem; }
+
+/* Adjustments */
+.area-title { padding-left: 1.5rem; }
+.title-accent { left: 0; }
+.table-token .token-body { margin-right: 2rem; }
+.area-header { margin-bottom: 1.5rem; }

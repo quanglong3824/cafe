@@ -1,0 +1,285 @@
+/* ============================================================
+   orders-list.css — Active Orders List (Clean Minimal)
+   Aurora Restaurant — Light & Simple Design
+   ============================================================ */
+
+:root {
+    --gold: #d4af37;
+    --gold-dark: #b8941f;
+    --gold-light: rgba(212, 175, 55, 0.06);
+    --bg: #fafbfc;
+    --surface: #ffffff;
+    --border: #eaeef2;
+    --text: #333333;
+    --text-muted: #8898aa;
+    --text-light: #b0b8c3;
+    --danger: #dc3545;
+    --success: #10b981;
+    --radius: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.page-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Header */
+.order-list-header {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.order-list-header h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.5rem 0;
+}
+
+.order-list-header p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Filters */
+.order-filters {
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-top: 0.5rem;
+}
+
+.order-filters::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-btn {
+    padding: 0.45rem 0.85rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.filter-btn.is-active {
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+}
+
+/* Order Cards */
+.order-list-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.order-row-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+@media (min-width: 600px) {
+    .order-row-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.65rem 0.85rem;
+    }
+}
+
+.order-row-card:hover {
+    border-color: var(--gold);
+    background: var(--bg);
+}
+
+.order-row-main {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.order-table-icon {
+    width: 42px;
+    height: 42px;
+    background: var(--gold);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.order-table-info h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.order-table-info h3 .badge-order-id {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.order-table-meta {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.order-table-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.order-table-meta i {
+    color: var(--gold);
+    font-size: 0.75rem;
+}
+
+/* Stats */
+.order-row-stats {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+}
+
+@media (min-width: 600px) {
+    .order-row-stats {
+        padding-top: 0;
+        border-top: none;
+        gap: 1.25rem;
+    }
+}
+
+.stat-box {
+    text-align: right;
+    min-width: 70px;
+}
+
+.stat-box .label {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.15rem;
+    font-weight: 600;
+}
+
+.stat-box .value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.stat-box .value.price {
+    color: var(--gold);
+}
+
+.stat-box .value.time-display {
+    color: var(--danger);
+}
+
+.stat-box .value.time-display.is-normal {
+    color: var(--text);
+}
+
+.chevron-icon {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-left: 0.5rem;
+}
+
+.order-row-card:hover .chevron-icon {
+    color: var(--gold);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+}
+
+.empty-state h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 0.25rem 0;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .order-row-stats {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+    
+    .stat-box {
+        text-align: left;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.25rem 0;
+    }
+    
+    .stat-box .label {
+        margin: 0;
+    }
+    
+    .order-list-header {
+        padding: 0.75rem;
+    }
+}
