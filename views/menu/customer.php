@@ -13,8 +13,8 @@
         </div>
 
         <div class="lang-switcher">
-            <a href="?lang=vi" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
-            <a href="?lang=en" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
+            <a href="<?= updateUrlParam('lang', 'vi') ?>" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
+            <a href="<?= updateUrlParam('lang', 'en') ?>" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
         </div>
         
         <div class="location-body">

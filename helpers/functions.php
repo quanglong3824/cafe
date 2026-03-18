@@ -139,6 +139,18 @@ function getLang(): string
 }
 
 /**
+ * Update a URL query parameter without losing others
+ */
+function updateUrlParam(string $param, string $value): string
+{
+    $params = $_GET;
+    $params[$param] = $value;
+    $queryString = http_build_query($params);
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    return $uri . '?' . $queryString;
+}
+
+/**
  * Time ago
  */
 function timeAgo(string $datetime): string
