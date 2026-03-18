@@ -1,5 +1,5 @@
 <?php // views/orders/status.php — Order Status for Customers ?>
-<link rel="stylesheet" href="<?= BASE_URL ?>/public/css/orders/status.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/css/orders/status.css?v=<?= time() ?>">
 
 <div class="status-container">
     <div class="status-header">

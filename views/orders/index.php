@@ -398,7 +398,7 @@ if (!empty($items)) {
 </div>
 
 <!-- External CSS -->
-<link rel="stylesheet" href="<?= BASE_URL ?>/public/css/orders/index.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/css/orders/index.css?v=<?= time() ?>">
 
 <!-- Config -->
 <script>
@@ -408,4 +408,4 @@ const ORDERS_CONFIG = {
 </script>
 
 <!-- External JavaScript -->
-<script src="<?= BASE_URL ?>/public/js/orders/index.js"></script>
+<script src="<?= BASE_URL ?>/public/js/orders/index.js?v=<?= time() ?>"></script>
