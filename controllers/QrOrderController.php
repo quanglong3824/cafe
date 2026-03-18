@@ -187,10 +187,15 @@ class QrOrderController extends Controller
             return;
         }
 
+        // Lấy danh sách món để tạo hash trạng thái
+        $items = $this->orderModel->getItems($order['id']);
+        $itemsHash = md5(implode('|', array_map(fn($it) => $it['id'] . '-' . $it['status'] . '-' . $it['quantity'], $items)));
+
         $this->json([
             'ok' => true, 
             'status' => $order['status'], 
-            'order_id' => $order['id']
+            'order_id' => $order['id'],
+            'items_hash' => $itemsHash
         ]);
     }
 

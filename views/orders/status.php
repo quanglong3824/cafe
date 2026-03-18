@@ -102,24 +102,36 @@
 
 <script>
     // Real-time Order Status Polling for Customers
+    let lastItemsHash = '<?= md5(implode('|', array_map(fn($it) => $it['id'] . "-" . $it['status'] . "-" . $it['quantity'], $items))) ?>';
+
     const pollStatus = () => {
         fetch(`<?= BASE_URL ?>/qr/order/check-status?table_id=<?= $order['table_id'] ?>`)
             .then(res => res.json())
             .then(data => {
-                if (data.ok && data.status === 'closed') {
-                    // Show success overlay
-                    document.getElementById('paymentSuccessOverlay').style.display = 'flex';
-                } else {
-                    // Keep polling every 5 seconds
-                    setTimeout(pollStatus, 5000);
+                if (data.ok) {
+                    // Check for general order close
+                    if (data.status === 'closed') {
+                        document.getElementById('paymentSuccessOverlay').style.display = 'flex';
+                        return; // Stop polling
+                    }
+                    
+                    // Check for individual item status changes (confirmed, cooking, etc)
+                    if (data.items_hash && data.items_hash !== lastItemsHash) {
+                        console.log('Order content changed, reloading view...');
+                        location.reload();
+                        return;
+                    }
                 }
+                
+                // Keep polling every 4 seconds
+                setTimeout(pollStatus, 4000);
             })
             .catch(err => {
                 console.error('Status poll error:', err);
-                setTimeout(pollStatus, 5000);
+                setTimeout(pollStatus, 4000);
             });
     };
 
     // Initial Start
-    setTimeout(pollStatus, 5000);
+    setTimeout(pollStatus, 4000);
 </script>
