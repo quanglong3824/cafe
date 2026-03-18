@@ -31,16 +31,35 @@ class QrSupportController extends Controller
 
     public function callWaiter(): void
     {
-        $tableId = $this->requireCustomer();
+        $tableId = (int)$this->input('table_id');
+        $type = $this->input('type', 'support');
+
+        if ($tableId <= 0) {
+            $tableId = $this->requireCustomer();
+        }
+
         $order = $this->orderModel->findOpenOrderByTable($tableId);
-        $orderId = $order ? $order['id'] : 0; // If no order yet, order_id is 0
+        $orderId = $order ? $order['id'] : 0;
+
+        if ($type === 'payment') {
+            $notifType = 'payment_request';
+            $title = "Bàn $tableId: Yêu cầu thanh toán";
+            $message = "Khách tại bàn $tableId yêu cầu tính tiền.";
+            if ($orderId > 0) {
+                $this->orderModel->appendNote($orderId, "KHÁCH YÊU CẦU THANH TOÁN");
+            }
+        } else {
+            $notifType = 'support_request';
+            $title = "Bàn $tableId: Cần hỗ trợ";
+            $message = "Khách tại bàn $tableId đang gọi nhân viên.";
+        }
 
         $this->notifModel->create([
             'order_id' => $orderId,
             'table_id' => $tableId,
-            'notification_type' => 'support_request',
-            'title' => "Bàn $tableId: Cần hỗ trợ",
-            'message' => "Khách tại bàn $tableId đang gọi nhân viên."
+            'notification_type' => $notifType,
+            'title' => $title,
+            'message' => $message
         ]);
 
         $this->json(['success' => true, 'message' => 'Yêu cầu của quý khách đã được gửi đến nhân viên.']);
