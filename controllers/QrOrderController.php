@@ -164,6 +164,36 @@ class QrOrderController extends Controller
         $this->json(['success' => true, 'items' => $formattedDrafts]);
     }
 
+    /** API: Kiểm tra trạng thái order nhanh (Dành cho polling phía khách) */
+    public function checkStatus(): void
+    {
+        $tableId = (int)$this->input('table_id');
+        if ($tableId <= 0) {
+            $this->json(['ok' => false, 'message' => 'Thiếu ID bàn'], 400);
+            return;
+        }
+
+        $order = $this->orderModel->findOpenOrderByTable($tableId);
+        
+        if (!$order) {
+            // Nếu không tìm thấy order 'open', có thể nó đã bị đóng (closed)
+            // Thử tìm order gần nhất để kiểm tra status
+            $lastOrder = $this->orderModel->findLastOrderByTable($tableId);
+            if ($lastOrder && $lastOrder['status'] === 'closed') {
+                $this->json(['ok' => true, 'status' => 'closed', 'order_id' => $lastOrder['id']]);
+                return;
+            }
+            $this->json(['ok' => true, 'status' => 'none']);
+            return;
+        }
+
+        $this->json([
+            'ok' => true, 
+            'status' => $order['status'], 
+            'order_id' => $order['id']
+        ]);
+    }
+
     /** View order status */
     public function status(): void
     {

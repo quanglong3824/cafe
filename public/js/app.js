@@ -175,18 +175,73 @@ document.addEventListener('DOMContentLoaded', () => {
         let html = '';
         notifications.forEach(n => {
             const isUnread = !parseInt(n.is_read);
+            const isPaymentRequest = n.notification_type === 'payment_request';
+            
             html += `
-                <div class="notification-item ${isUnread ? 'unread' : ''}" onclick="window.location.href='${BASE_URL}/admin/realtime?order_id=${n.order_id}'">
+                <div class="notification-item ${isUnread ? 'unread' : ''}" onclick="!event.target.closest('button') && (window.location.href='${BASE_URL}/admin/realtime?order_id=${n.order_id}')">
                     <div class="notification-item-icon"><i class="fas ${getIcon(n.notification_type)}"></i></div>
                     <div class="notification-item-content">
                         <h5>${n.title}</h5>
                         <p>${n.message}</p>
                         <div class="notification-item-time">${formatTimeAgo(new Date(n.created_at))}</div>
+                        
+                        ${isPaymentRequest ? `
+                            <div class="notification-actions mt-2">
+                                <button class="btn btn-sm btn-success py-1 px-3 rounded-pill fw-bold" 
+                                    onclick="quickPay(event, ${n.table_id}, ${n.order_id}, ${n.id})">
+                                    <i class="fas fa-check-circle me-1"></i> XÁC NHẬN THANH TOÁN
+                                </button>
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
             `;
         });
         adminList.innerHTML = html;
+    }
+
+    /** Quick Pay from Notification */
+    window.quickPay = async function(event, tableId, orderId, notifId) {
+        event.stopPropagation();
+        if (!confirm('Xác nhận đã nhận tiền và hoàn tất thanh toán cho bàn này?')) return;
+
+        const btn = event.currentTarget;
+        const originalHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> ĐANG XỬ LÝ...';
+
+        try {
+            const fd = new FormData();
+            fd.append('table_id', tableId);
+            fd.append('order_id', orderId);
+            fd.append('payment_method', 'cash'); // Default for quick pay
+            fd.append('ajax', '1');
+
+            const response = await fetch(`${BASE_URL}/tables/close`, {
+                method: 'POST',
+                body: fd
+            });
+            const data = await response.json();
+
+            if (data.ok) {
+                // Mark notification as read
+                await markAsRead(notifId);
+                alert('Thanh toán thành công!');
+                // Reload current view if it's realtime or table view
+                if (window.location.href.includes('realtime') || window.location.href.includes('tables')) {
+                    window.location.reload();
+                }
+            } else {
+                alert(data.message || 'Lỗi thanh toán');
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Lỗi kết nối server');
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+        }
     }
 
     function getIcon(type) {

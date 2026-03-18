@@ -58,4 +58,68 @@
             <i class="fas fa-arrow-left"></i> QUAY VỀ TRANG ORDER
         </a>
     </div>
+
+    <!-- Payment Success Backdrop -->
+    <div id="paymentSuccessOverlay" class="payment-success-overlay" style="display:none;">
+        <div class="success-content text-center">
+            <div class="success-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2>Cảm ơn Quý khách!</h2>
+            <p>Hóa đơn của Quý khách đã được thanh toán thành công.</p>
+            <p class="small text-muted">Hẹn gặp lại Quý khách lần sau!</p>
+            <div class="mt-4">
+                <a href="<?= BASE_URL ?>/qr/menu?table_id=<?= $order['table_id'] ?>&token=<?= $_SESSION['qr_token'] ?? '' ?>" class="btn-gold">
+                    <i class="fas fa-home me-2"></i> TIẾP TỤC ĐẶT MÓN
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+.payment-success-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    padding: 30px; animation: fadeIn 0.5s ease forwards;
+}
+.success-content { max-width: 400px; width: 100%; }
+.success-icon {
+    width: 100px; height: 100px; background: #fff5f5; color: #f87171;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 3.5rem; margin: 0 auto 20px; box-shadow: 0 10px 25px rgba(248, 113, 113, 0.2);
+    animation: heartBeat 1.5s infinite;
+}
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
+}
+</style>
+
+<script>
+    // Real-time Order Status Polling for Customers
+    const pollStatus = () => {
+        fetch(`<?= BASE_URL ?>/qr/order/check-status?table_id=<?= $order['table_id'] ?>`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.ok && data.status === 'closed') {
+                    // Show success overlay
+                    document.getElementById('paymentSuccessOverlay').style.display = 'flex';
+                } else {
+                    // Keep polling every 5 seconds
+                    setTimeout(pollStatus, 5000);
+                }
+            })
+            .catch(err => {
+                console.error('Status poll error:', err);
+                setTimeout(pollStatus, 5000);
+            });
+    };
+
+    // Initial Start
+    setTimeout(pollStatus, 5000);
+</script>
