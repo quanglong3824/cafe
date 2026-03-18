@@ -205,12 +205,17 @@ class Order extends Model
     }
 
     /** Đóng order & đóng bàn (Thanh toán) */
-    public function close(int $orderId, string $paymentMethod): void
+    public function close(int $orderId, string $paymentMethod, ?int $waiterId = null): void
     {
+        // Nếu không truyền waiterId, thử lấy từ session của người dùng hiện tại
+        if (!$waiterId && Auth::isLoggedIn()) {
+            $waiterId = Auth::user()['id'];
+        }
+
         $this->execute(
             "UPDATE orders SET status = 'closed', closed_at = NOW(), 
-             payment_method = ?, payment_status = 'paid' WHERE id = ?",
-            [$paymentMethod, $orderId]
+             payment_method = ?, payment_status = 'paid', waiter_id = ? WHERE id = ?",
+            [$paymentMethod, $waiterId, $orderId]
         );
     }
 
