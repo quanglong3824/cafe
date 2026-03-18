@@ -105,7 +105,10 @@
     let lastItemsHash = '<?= md5(implode('|', array_map(fn($it) => $it['id'] . "-" . $it['status'] . "-" . $it['quantity'], $items))) ?>';
 
     const pollStatus = () => {
-        fetch(`<?= BASE_URL ?>/qr/order/check-status?table_id=<?= $order['table_id'] ?>`)
+        // Add cache busting param
+        const url = `<?= BASE_URL ?>/qr/order/check-status?table_id=<?= $order['table_id'] ?>&t=${new Date().getTime()}`;
+        
+        fetch(url)
             .then(res => res.json())
             .then(data => {
                 if (data.ok) {
@@ -123,15 +126,15 @@
                     }
                 }
                 
-                // Keep polling every 4 seconds
-                setTimeout(pollStatus, 4000);
+                // Keep polling every 3 seconds for faster response
+                setTimeout(pollStatus, 3000);
             })
             .catch(err => {
                 console.error('Status poll error:', err);
-                setTimeout(pollStatus, 4000);
+                setTimeout(pollStatus, 3000);
             });
     };
 
     // Initial Start
-    setTimeout(pollStatus, 4000);
+    setTimeout(pollStatus, 3000);
 </script>
