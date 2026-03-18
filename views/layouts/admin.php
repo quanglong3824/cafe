@@ -93,6 +93,10 @@
                         <i class="fas fa-database"></i>
                         <span>Dữ liệu (Backup)</span>
                     </a>
+                    <a href="<?= BASE_URL ?>/it/database/cleanup" class="nav-item <?= activeClass('/it/database/cleanup') ?>">
+                        <i class="fas fa-broom"></i>
+                        <span>Dọn dẹp CSDL</span>
+                    </a>
                 </div>
 
                 <div class="nav-section">
