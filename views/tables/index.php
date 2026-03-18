@@ -236,13 +236,12 @@ function renderTableToken($t, $tableModel) {
             <input type="hidden" name="table_id" id="openTableId">
             <div class="form-group mb-4">
                 <label class="form-label text-gold small fw-bold text-uppercase">Số lượng khách</label>
-                <div class="guest-selector-grid">
-                    <?php for ($i = 1; $i <= 12; $i++): ?>
-                        <label class="guest-option">
-                            <input type="radio" name="guest_count" value="<?= $i ?>" <?= $i === 2 ? 'checked' : '' ?>>
-                            <span><?= $i ?></span>
-                        </label>
-                    <?php endfor; ?>
+                <div class="guest-selector-grid" id="guestSelectorGrid">
+                    <!-- Sẽ được điền bởi JS -->
+                </div>
+                <div class="mt-3">
+                    <label class="form-label text-muted small">Hoặc nhập số lượng khách:</label>
+                    <input type="number" name="guest_count_manual" id="guestCountManual" class="form-control" min="1" max="100" placeholder="Số khách...">
                 </div>
             </div>
             <button type="submit" class="btn btn-gold w-100 py-3 fw-bold">
@@ -476,6 +475,48 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             document.getElementById('modalTableName').textContent = table.name;
             document.getElementById('openTableId').value = table.id;
+            
+            // Build guest selector based on table capacity
+            const grid = document.getElementById('guestSelectorGrid');
+            const manualInput = document.getElementById('guestCountManual');
+            grid.innerHTML = '';
+            manualInput.value = '';
+
+            const capacity = parseInt(table.capacity) || 4;
+            // Show options up to capacity, min 4 options
+            const maxOptions = Math.max(capacity, 6);
+            
+            for (let i = 1; i <= maxOptions; i++) {
+                const label = document.createElement('label');
+                label.className = 'guest-option';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'guest_count';
+                input.value = i;
+                if (i === capacity) input.checked = true;
+                
+                const span = document.createElement('span');
+                span.textContent = i;
+                
+                label.appendChild(input);
+                label.appendChild(span);
+                grid.appendChild(label);
+
+                // Clear manual input if a preset is selected
+                input.addEventListener('change', () => {
+                    if (input.checked) manualInput.value = '';
+                });
+            }
+
+            // Clear radio selection if manual input is used
+            manualInput.addEventListener('input', () => {
+                if (manualInput.value) {
+                    const checked = grid.querySelector('input[name="guest_count"]:checked');
+                    if (checked) checked.checked = false;
+                }
+            });
+
             Aurora.openModal('modalOpenTable');
         }
     };

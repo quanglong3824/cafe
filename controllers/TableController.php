@@ -43,7 +43,16 @@ class TableController extends Controller
         Auth::requireRole(ROLE_WAITER, ROLE_ADMIN);
 
         $tableId = (int) $this->input('table_id');
-        $guestCount = max(1, (int) $this->input('guest_count', 1));
+        
+        // Ưu tiên lấy từ ô nhập tay nếu có giá trị
+        $manualCount = $this->input('guest_count_manual');
+        if ($manualCount !== null && $manualCount !== '') {
+            $guestCount = (int) $manualCount;
+        } else {
+            $guestCount = (int) $this->input('guest_count', 1);
+        }
+        
+        $guestCount = max(1, $guestCount);
         $waiterId = Auth::user()['id'];
         $shiftId = $_SESSION['user_shift_id'] ?? null;
 
