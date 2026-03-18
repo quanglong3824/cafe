@@ -1,56 +1,59 @@
 /* ============================================================
-   status.css — Customer Order Status
+   status.css — Customer Order Status (Responsive Optimized)
    Aurora Cafe
    ============================================================ */
 
 .status-container {
-    padding: 30px 20px;
+    padding: 20px 15px;
     max-width: 500px;
     margin: 0 auto;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .status-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 25px;
 }
 
 .status-icon {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background: var(--gold-light);
     color: var(--gold);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
-    margin: 0 auto 20px;
+    font-size: 2.2rem;
+    margin: 0 auto 15px;
     border: 2px solid var(--gold);
 }
 
 .status-header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    margin: 0 0 10px;
+    font-size: 1.5rem;
+    margin: 0 0 5px;
     color: var(--text-dark);
 }
 
 .status-header p {
+    font-size: 0.9rem;
     color: var(--text-light);
     margin: 0;
 }
 
 .order-summary-card {
     background: #fff;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     border: 1px solid var(--border);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .order-summary-card .card-header {
-    padding: 15px 20px;
+    padding: 12px 15px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     display: flex;
@@ -60,7 +63,7 @@
 
 .order-summary-card .card-header h3 {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
 }
 
@@ -68,41 +71,51 @@
     font-family: monospace;
     color: var(--gold-dark);
     font-weight: 700;
+    font-size: 0.85rem;
 }
 
 .card-body {
-    padding: 20px;
+    padding: 15px;
 }
 
 .status-item-row {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
+    align-items: flex-start;
+    padding: 10px 0;
     border-bottom: 1px dashed var(--border);
+    gap: 10px;
 }
 
 .status-item-row:last-child {
     border-bottom: none;
 }
 
+.item-info {
+    flex: 1;
+    min-width: 0; /* Allow text truncate or wrap */
+}
+
 .item-qty {
     font-weight: 700;
     color: var(--gold-dark);
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .item-name {
     font-weight: 600;
     color: var(--text-dark);
+    font-size: 0.95rem;
+    word-break: break-word;
 }
 
 .item-status {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
     margin-top: 4px;
     display: inline-block;
-    padding: 2px 8px;
+    padding: 2px 6px;
     border-radius: 4px;
 }
 
@@ -115,12 +128,14 @@
 .item-price {
     font-weight: 700;
     color: var(--text-med);
+    font-size: 0.9rem;
+    white-space: nowrap;
 }
 
 .summary-footer {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 2px solid var(--border);
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
 }
 
 .total-row {
@@ -132,24 +147,25 @@
 .total-row span {
     font-weight: 600;
     color: var(--text-light);
+    font-size: 0.9rem;
 }
 
 .total-row strong {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: var(--gold-dark);
 }
 
 .action-buttons {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
 .btn-gold, .btn-outline {
     width: 100%;
-    padding: 16px;
-    border-radius: 16px;
+    padding: 14px;
+    border-radius: 12px;
     font-weight: 700;
     text-align: center;
     text-decoration: none;
@@ -159,37 +175,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 1rem;
-    letter-spacing: 0.5px;
+    gap: 8px;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
     text-transform: uppercase;
+    box-sizing: border-box;
 }
 
 .btn-gold {
     background: linear-gradient(135deg, var(--gold-dark), var(--gold));
     color: white;
-    box-shadow: 0 10px 20px -5px rgba(184, 134, 11, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 15px -3px rgba(184, 134, 11, 0.3);
 }
 
 .btn-gold:active {
-    transform: scale(0.97);
-    box-shadow: 0 5px 10px -3px rgba(184, 134, 11, 0.4);
+    transform: scale(0.98);
+    box-shadow: 0 3px 8px -2px rgba(184, 134, 11, 0.3);
 }
 
 .btn-outline {
     background: white;
-    border: 2px solid var(--gold-light);
+    border: 1.5px solid var(--gold-light);
     color: var(--gold-dark);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 .btn-outline:active {
-    background: var(--bg);
-    transform: scale(0.97);
+    background: #f8fafc;
+    transform: scale(0.98);
 }
 
 .btn-gold i, .btn-outline i {
-    font-size: 1.1rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 360px) {
+    .status-header h1 { font-size: 1.3rem; }
+    .total-row strong { font-size: 1.1rem; }
+    .btn-gold, .btn-outline { padding: 12px; font-size: 0.85rem; }
 }
