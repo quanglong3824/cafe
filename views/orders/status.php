@@ -51,11 +51,11 @@
     </div>
 
     <div class="action-buttons">
-        <a href="<?= BASE_URL ?>/qr/menu?table_id=<?= $order['table_id'] ?>&token=<?= $_SESSION['qr_token'] ?? '' ?>" class="btn-outline">
-            <i class="fas fa-plus"></i> <?= __('order_more') ?>
+        <a href="<?= BASE_URL ?>/qr/menu?table_id=<?= $order['table_id'] ?>&token=<?= $_SESSION['qr_token'] ?? '' ?>" class="btn-gold">
+            <i class="fas fa-utensils"></i> <?= __('order_more') ?>
         </a>
-        <button class="btn-gold" onclick="requestSupport(<?= $order['table_id'] ?>, 'payment')">
-            <i class="fas fa-file-invoice-dollar"></i> <?= __('request_payment') ?>
-        </button>
+        <a href="<?= BASE_URL ?>/qr/menu?table_id=<?= $order['table_id'] ?>&token=<?= $_SESSION['qr_token'] ?? '' ?>" class="btn-outline">
+            <i class="fas fa-arrow-left"></i> QUAY VỀ TRANG ORDER
+        </a>
     </div>
 </div>
