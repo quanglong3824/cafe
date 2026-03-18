@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/src/logo/favicon.png">
     <link rel="apple-touch-icon" href="<?= BASE_URL ?>/public/src/logo/favicon.png">
     <meta name="theme-color" content="#d4af37">
-    <title><?= e($pageTitle ?? 'Aurora Cafe') ?> — Aurora</title>
+    <title><?= e($pageTitle ?? 'Aurora Hotel Plaza') ?> — Cafe</title>
 
     <!-- Google Fonts: Outfit & Playfair Display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
                 <div class="brand-text">
                     <span class="brand-main">AURORA</span>
                     <span class="brand-sub">HOTEL PLAZA</span>
-                    <span class="brand-tag">RESTAURANT</span>
+                    <span class="brand-tag">CAFE</span>
                 </div>
             </div>
         </div>

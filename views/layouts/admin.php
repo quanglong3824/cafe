@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#d4af37">
-    <title><?= e($pageTitle ?? 'Admin') ?> — Aurora Cafe</title>
+    <title><?= e($pageTitle ?? 'Admin') ?> — Aurora Hotel Plaza</title>
 
     <!-- App Icons & iOS Web App Meta -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/src/logo/favicon.png">
@@ -46,10 +46,10 @@
         <!-- Sidebar Header -->
         <div class="sidebar-header">
             <div class="sidebar-logo">
-                <i class="fas fa-utensils"></i>
+                <i class="fas fa-hotel"></i>
                 <div>
-                    <h2>Aurora</h2>
-                    <p>Cafe Manager</p>
+                    <h2 style="font-size: 0.85rem; letter-spacing: 0.5px;">Aurora Hotel Plaza</h2>
+                    <p style="font-size: 0.75rem; letter-spacing: 2px; color: var(--gold);">CAFE</p>
                 </div>
             </div>
         </div>

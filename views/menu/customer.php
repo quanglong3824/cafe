@@ -9,7 +9,7 @@
                 <i class="fas fa-shield-alt"></i>
             </div>
             <h3>XÁC NHẬN HIỆN DIỆN</h3>
-            <p class="subtitle">Chào mừng Quý khách đến với Aurora Cafe</p>
+            <p class="subtitle">Chào mừng Quý khách đến với Aurora Hotel Plaza</p>
         </div>
         
         <div class="location-body">
@@ -86,7 +86,7 @@
         <div class="header-top">
             <div class="brand-logo">
                 <h1 class="playfair">AURORA</h1>
-                <span>RESTAURANT</span>
+                <span>HOTEL PLAZA, CAFE</span>
             </div>
             <div class="table-info">
                 <span class="table-label">BÀN</span>

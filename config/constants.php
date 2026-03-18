@@ -5,7 +5,7 @@
 // ============================================================
 
 // App info
-define('APP_NAME', 'Aurora Cafe');
+define('APP_NAME', 'Aurora Hotel Plaza, Cafe');
 define('APP_VERSION', '2.0.0 (Pre-release)');
 define('APP_LANG', 'vi');
 

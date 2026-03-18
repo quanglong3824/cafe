@@ -1,4 +1,4 @@
-# Aurora Cafe Management System v2.0.0
+# Aurora Hotel Plaza - Cafe Management System v2.0.0
 
 Phân hệ quản lý Cafe dành riêng cho Aurora Hotel Plaza. Đây là bản clone 1:1 từ hệ thống Nhà hàng, được cấu hình độc lập để chạy tại `/cafe`.
 
@@ -12,7 +12,7 @@ Phân hệ quản lý Cafe dành riêng cho Aurora Hotel Plaza. Đây là bản 
     - Cấu hình kết nối tại `cafe/config/database.php`.
 
 2.  **Cấu hình hệ thống**:
-    - Tên ứng dụng đã được đổi thành **Aurora Cafe** trong `cafe/config/constants.php`.
+    - Tên ứng dụng đã được đổi thành **Aurora Hotel Plaza, Cafe** trong `cafe/config/constants.php`.
     - Toàn bộ logic Realtime, Geofencing và iPad Shortcut đã được tích hợp sẵn.
 
 3.  **Truy cập**:
