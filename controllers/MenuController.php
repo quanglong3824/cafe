@@ -94,6 +94,7 @@ class MenuController extends Controller
         // Lấy danh sách menu types (Giữ nguyên cũ nhưng tắt bớt cái ko liên quan)
         $menuTypes = [
             ['key' => 'asia', 'label' => 'Món Á', 'icon' => 'fa-bowl-rice'],
+            ['key' => 'europe', 'label' => 'Món Âu', 'icon' => 'fa-bread-slice'],
             ['key' => 'alacarte', 'label' => 'Ala Carte', 'icon' => 'fa-utensils'],
             ['key' => 'sets', 'label' => 'Set & Combo', 'icon' => 'fa-boxes-stacked'],
             ['key' => 'other', 'label' => 'Đồ uống / Khác', 'icon' => 'fa-glass-water'],
