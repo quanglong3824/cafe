@@ -1,5 +1,5 @@
 <?php // views/menu/customer.php — Customer Digital Menu (Mobile First) ?>
-<link rel="stylesheet" href="<?= BASE_URL ?>/public/css/menu/customer.css">
+<link rel="stylesheet" href="<?= BASE_URL ?>/public/css/menu/customer.css?v=<?= time() ?>">
 
 <!-- Location Check Overlay -->
 <div id="locationOverlay" class="location-check-overlay">
@@ -394,11 +394,13 @@
             </div>
             <?php endif; ?>
         </div>
-        <div class="modal-footer">
-            <button class="btn-gold w-100 mb-2" onclick="callWaiter('payment')">
+        <div class="modal-footer flex-column gap-2">
+            <button class="btn-gold-lux w-100" onclick="callWaiter('payment')">
                 <i class="fas fa-hand-holding-usd me-2"></i> <?= __('request_payment') ?>
             </button>
-            <button class="btn-ghost w-100" onclick="closeBillTam()"><?= __('continue_ordering') ?></button>
+            <button class="btn-outline-lux w-100" onclick="closeBillTam()">
+                <i class="fas fa-utensils me-2"></i> <?= __('continue_ordering') ?>
+            </button>
         </div>
     </div>
 </div>
@@ -414,6 +416,26 @@
     .bill-item-status.confirmed { color: #10b981; }
     .bill-item-status.pending { color: #f59e0b; }
     .bill-summary { background: #f8fafc; padding: 15px; border-radius: 12px; border: 1px solid var(--border); }
+
+    /* Luxurious Button Styles for Modal */
+    .btn-gold-lux, .btn-outline-lux {
+        padding: 16px; border-radius: 16px; font-weight: 700;
+        display: flex; align-items: center; justify-content: center;
+        gap: 10px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 1rem; letter-spacing: 0.5px; text-transform: uppercase;
+        border: none; cursor: pointer; font-family: inherit;
+    }
+    .btn-gold-lux {
+        background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+        color: white; box-shadow: 0 10px 20px -5px rgba(184, 134, 11, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .btn-gold-lux:active { transform: scale(0.97); }
+    .btn-outline-lux {
+        background: white; border: 2px solid var(--gold-light);
+        color: var(--gold-dark); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .btn-outline-lux:active { transform: scale(0.97); }
 </style>
 
 <!-- Scripts Configuration -->
@@ -441,4 +463,4 @@
         document.body.style.overflow = '';
     }
 </script>
-<script src="<?= BASE_URL ?>/public/js/menu/customer.js" defer></script>
+<script src="<?= BASE_URL ?>/public/js/menu/customer.js?v=<?= time() ?>" defer></script>
