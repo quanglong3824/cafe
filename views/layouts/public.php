@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="<?= getLang() ?>" translate="no">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="google" content="notranslate">
     <meta name="theme-color" content="#c5a059">
     <title><?= e($pageTitle ?? 'Menu') ?> — Aurora Hotel Plaza</title>
 
@@ -25,6 +26,42 @@
     <!-- Global JS Config -->
     <script>
         const BASE_URL = '<?= BASE_URL ?>';
+        const APP_LANG = '<?= getLang() ?>';
+        const TRANSLATIONS = <?= json_encode([
+            'authenticating' => __('authenticating'),
+            'loc_timeout' => __('loc_timeout'),
+            'browser_no_loc' => __('browser_no_loc'),
+            'too_far' => __('too_far'),
+            'permission_denied' => __('permission_denied'),
+            'pos_unavailable' => __('pos_unavailable'),
+            'timeout' => __('timeout'),
+            'unknown_error' => __('unknown_error'),
+            'retry' => __('retry'),
+            'added_item' => __('added_item'),
+            'cart_empty' => __('cart_empty'),
+            'continue_choosing' => __('continue_choosing'),
+            'note_label' => __('note_label'),
+            'processing' => __('processing'),
+            'order_success' => __('order_success'),
+            'order_fail' => __('order_fail'),
+            'conn_error' => __('conn_error'),
+            'call_waiter_confirm' => __('call_waiter_confirm'),
+            'payment_confirm' => __('payment_confirm'),
+            'request_sent' => __('request_sent'),
+            'request_fail' => __('request_fail'),
+            'no_desc' => __('no_desc')
+        ]) ?>;
+
+        /**
+         * Helper to get translation with replacements
+         */
+        function __(key, replace = {}) {
+            let text = TRANSLATIONS[key] || key;
+            for (const [s, v] of Object.entries(replace)) {
+                text = text.replace(`:${s}`, v);
+            }
+            return text;
+        }
     </script>
 
     <style>

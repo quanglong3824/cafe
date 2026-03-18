@@ -6,14 +6,14 @@
         <div class="status-icon success">
             <i class="fas fa-check-circle"></i>
         </div>
-        <h1>Order đã được gửi!</h1>
-        <p>Vui lòng đợi nhân viên xác nhận và phục vụ.</p>
+        <h1><?= __('order_sent') ?></h1>
+        <p><?= __('wait_for_waiter') ?></p>
     </div>
 
     <div class="order-summary-card">
         <div class="card-header">
-            <h3>Chi tiết Order</h3>
-            <span class="order-id">#<?= e($order['id']) ?></span>
+            <h3><?= __('order_details_title') ?></h3>
+            <span class="order-id"><?= __('order_id') ?><?= e($order['id']) ?></span>
         </div>
         <div class="card-body">
             <div class="items-list">
@@ -22,15 +22,15 @@
                     <div class="status-item-row">
                         <div class="item-info">
                             <span class="item-qty">x<?= $it['quantity'] ?></span>
-                            <span class="item-name"><?= e($it['item_name']) ?></span>
+                            <span class="item-name"><?= e(getLang() === 'en' && !empty($it['name_en']) ? $it['name_en'] : $it['item_name']) ?></span>
                             <div class="item-status <?= e($it['status']) ?>">
                                 <?php 
                                     $statusMap = [
-                                        'pending' => 'Chờ xác nhận',
-                                        'confirmed' => 'Đã xác nhận',
-                                        'cooking' => 'Đang chế biến',
-                                        'served' => 'Đã phục vụ',
-                                        'cancelled' => 'Đã hủy'
+                                        'pending' => __('status_pending'),
+                                        'confirmed' => __('status_confirmed'),
+                                        'cooking' => __('status_cooking'),
+                                        'served' => __('status_served'),
+                                        'cancelled' => __('status_cancelled')
                                     ];
                                     echo $statusMap[$it['status']] ?? $it['status'];
                                 ?>
@@ -43,7 +43,7 @@
             </div>
             <div class="summary-footer">
                 <div class="total-row">
-                    <span>Tổng cộng</span>
+                    <span><?= __('total') ?></span>
                     <strong><?= formatPrice($total) ?></strong>
                 </div>
             </div>
@@ -52,10 +52,10 @@
 
     <div class="action-buttons">
         <a href="<?= BASE_URL ?>/qr/menu?table_id=<?= $order['table_id'] ?>&token=<?= $_SESSION['qr_token'] ?? '' ?>" class="btn-outline">
-            <i class="fas fa-plus"></i> Gọi thêm món
+            <i class="fas fa-plus"></i> <?= __('order_more') ?>
         </a>
         <button class="btn-gold" onclick="requestSupport(<?= $order['table_id'] ?>, 'payment')">
-            <i class="fas fa-file-invoice-dollar"></i> Yêu cầu thanh toán
+            <i class="fas fa-file-invoice-dollar"></i> <?= __('request_payment') ?>
         </button>
     </div>
 </div>

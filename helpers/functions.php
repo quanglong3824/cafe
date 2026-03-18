@@ -99,6 +99,46 @@ function roleLabel(string $role): string
 }
 
 /**
+ * Translation helper
+ */
+function __(string $key, array $replace = []): string
+{
+    static $translations = [];
+    $lang = getLang();
+
+    if (!isset($translations[$lang])) {
+        $filePath = BASE_PATH . "/lang/{$lang}.json";
+        if (file_exists($filePath)) {
+            $translations[$lang] = json_decode(file_get_contents($filePath), true);
+        } else {
+            $translations[$lang] = [];
+        }
+    }
+
+    $text = $translations[$lang][$key] ?? $key;
+
+    foreach ($replace as $search => $value) {
+        $text = str_replace(':' . $search, $value, $text);
+    }
+
+    return $text;
+}
+
+/**
+ * Get current language
+ */
+function getLang(): string
+{
+    if (isset($_GET['lang'])) {
+        $lang = $_GET['lang'] === 'en' ? 'en' : 'vi';
+        setcookie('lang', $lang, time() + (86400 * 30), '/'); // 30 days
+        $_SESSION['lang'] = $lang;
+        return $lang;
+    }
+    return $_SESSION['lang'] ?? $_COOKIE['lang'] ?? 'vi';
+}
+
+/**
  * Time ago
  */
 function timeAgo(string $datetime): string

@@ -20,20 +20,20 @@ function checkLocation() {
     const errorEl = document.getElementById('locationError');
 
     btn.addEventListener('click', () => {
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> ĐANG XÁC THỰC...';
+        btn.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i> ${__('authenticating')}`;
         btn.disabled = true;
         errorEl.style.display = 'none';
 
         // Bảo hiểm: Nếu sau 20 giây vẫn chưa có phản hồi từ trình duyệt, cho phép thử lại
         const safetyTimer = setTimeout(() => {
             if (btn.disabled) {
-                showLocError("Yêu cầu định vị mất quá nhiều thời gian. Vui lòng kiểm tra cài đặt GPS và thử lại.");
+                showLocError(__('loc_timeout'));
             }
         }, 20000);
 
         if (!navigator.geolocation) {
             clearTimeout(safetyTimer);
-            showLocError("Trình duyệt của bạn không hỗ trợ định vị. Vui lòng sử dụng trình duyệt khác (Chrome, Safari).");
+            showLocError(__('browser_no_loc'));
             return;
         }
 
@@ -49,7 +49,7 @@ function checkLocation() {
                 );
 
                 if (distance > CUSTOMER_CONFIG.maxDistance) {
-                    showLocError(`Bạn đang ở quá xa nhà hàng (${Math.round(distance)}m). Vui lòng quét mã tại bàn để đặt món.`);
+                    showLocError(__('too_far', { distance: Math.round(distance) }));
                 } else {
                     // Success!
                     overlay.style.transition = 'opacity 0.5s';
@@ -62,19 +62,19 @@ function checkLocation() {
             },
             (err) => {
                 clearTimeout(safetyTimer);
-                let msg = "Không thể lấy vị trí. ";
+                let msg = "";
                 switch(err.code) {
                     case err.PERMISSION_DENIED: 
-                        msg = "Bạn đã từ chối quyền truy cập vị trí. Vui lòng bật lại trong cài đặt trình duyệt hoặc quét lại mã QR."; 
+                        msg = __('permission_denied'); 
                         break;
                     case err.POSITION_UNAVAILABLE: 
-                        msg = "Không thể xác định vị trí. Vui lòng đảm bảo đã bật GPS."; 
+                        msg = __('pos_unavailable'); 
                         break;
                     case err.TIMEOUT: 
-                        msg = "Hết thời gian yêu cầu vị trí. Vui lòng thử lại ở nơi có sóng tốt hơn."; 
+                        msg = __('timeout'); 
                         break;
                     default: 
-                        msg += "Lỗi không xác định: " + err.message;
+                        msg = __('unknown_error') + err.message;
                 }
                 showLocError(msg);
             },
@@ -89,7 +89,7 @@ function checkLocation() {
     function showLocError(msg) {
         errorEl.textContent = msg;
         errorEl.style.display = 'block';
-        btn.innerHTML = '<i class="fas fa-redo me-2"></i> THỬ LẠI';
+        btn.innerHTML = `<i class="fas fa-redo me-2"></i> ${__('retry')}`;
         btn.disabled = false;
     }
 }
@@ -253,7 +253,7 @@ function quickAdd(id, name, price) {
         cart.push({ id, name, price, quantity: 1, note: '' });
     }
     saveCart();
-    showToast(`Đã thêm ${name}`);
+    showToast(__('added_item', { name }));
 }
 
 function showToast(msg) {
@@ -297,9 +297,11 @@ function showToast(msg) {
 
 function showItemDetail(item) {
     currentItem = { ...item, quantity: 1, note: '' };
-    document.getElementById('detailName').textContent = item.name;
+    document.getElementById('detailName').textContent = APP_LANG === 'en' && item.name_en ? item.name_en : item.name;
     document.getElementById('detailPrice').textContent = formatCurrency(item.price);
-    document.getElementById('detailDesc').textContent = item.description || 'Không có mô tả cho món ăn này.';
+    
+    const desc = APP_LANG === 'en' && item.description_en ? item.description_en : item.description;
+    document.getElementById('detailDesc').textContent = desc || __('no_desc');
     document.getElementById('detailQty').textContent = '1';
     document.getElementById('detailNote').value = '';
     
@@ -348,7 +350,7 @@ function addFromDetail() {
     
     saveCart();
     closeItemDetail();
-    showToast(`Đã thêm ${currentItem.name}`);
+    showToast(__('added_item', { name: APP_LANG === 'en' && currentItem.name_en ? currentItem.name_en : currentItem.name }));
 }
 
 function toggleCartModal() {
@@ -373,8 +375,8 @@ function updateCartModal() {
         container.innerHTML = `
             <div class="text-center py-5">
                 <i class="fas fa-shopping-basket fa-3x text-light mb-3"></i>
-                <p class="text-muted">Giỏ hàng đang trống.</p>
-                <button class="btn-gold mt-3" onclick="toggleCartModal()">TIẾP TỤC CHỌN MÓN</button>
+                <p class="text-muted">${__('cart_empty')}</p>
+                <button class="btn-gold mt-3" onclick="toggleCartModal()">${__('continue_choosing')}</button>
             </div>
         `;
         modalTotal.textContent = '0₫';
@@ -386,12 +388,13 @@ function updateCartModal() {
     
     cart.forEach((item, index) => {
         total += item.price * item.quantity;
+        const itemName = APP_LANG === 'en' && item.name_en ? item.name_en : item.name;
         html += `
             <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:1px solid var(--border);">
                 <div style="flex:1;">
-                    <div style="font-weight:700; color:var(--text-dark);">${item.name}</div>
+                    <div style="font-weight:700; color:var(--text-dark);">${itemName}</div>
                     <div style="color:var(--gold-dark); font-weight:600; font-size:0.85rem;">${formatCurrency(item.price)}</div>
-                    ${item.note ? `<div style="font-style:italic; font-size:0.75rem; color:var(--text-light); margin-top:4px;">Lưu ý: ${item.note}</div>` : ''}
+                    ${item.note ? `<div style="font-style:italic; font-size:0.75rem; color:var(--text-light); margin-top:4px;">${__('note_label')}${item.note}</div>` : ''}
                 </div>
                 <div class="qty-selector" style="background:#f1f5f9; padding:5px 10px; border-radius:10px; display:flex; align-items:center; gap:15px; scale:0.8;">
                     <button class="qty-btn" style="width:30px; height:30px; font-size:0.8rem;" onclick="changeCartQty(${index}, -1)"><i class="fas fa-minus"></i></button>
@@ -425,7 +428,7 @@ async function submitOrder() {
     const originalText = btn.innerHTML;
     
     btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> ĐANG XỬ LÝ...';
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${__('processing')}`;
 
     const formData = new FormData();
     formData.append('cart', JSON.stringify(cart));
@@ -442,25 +445,26 @@ async function submitOrder() {
         if (result.success) {
             cart = [];
             saveCart();
-            showToast('Gửi bếp thành công!');
+            showToast(__('order_success'));
             setTimeout(() => {
                 window.location.href = `${CUSTOMER_CONFIG.baseUrl}/qr/order/status`;
             }, 1000);
         } else {
-            alert(result.error || 'Lỗi gửi order. Vui lòng thử lại.');
+            alert(result.error || __('order_fail'));
             btn.disabled = false;
             btn.innerHTML = originalText;
         }
     } catch (e) {
         console.error(e);
-        alert('Lỗi kết nối máy chủ. Vui lòng kiểm tra mạng.');
+        alert(__('conn_error'));
         btn.disabled = false;
         btn.innerHTML = originalText;
     }
 }
 
 async function callWaiter(type) {
-    if (!confirm(type === 'payment' ? 'Bạn muốn yêu cầu thanh toán?' : 'Bạn muốn gọi nhân viên phục vụ?')) return;
+    const confirmMsg = type === 'payment' ? __('payment_confirm') : __('call_waiter_confirm');
+    if (!confirm(confirmMsg)) return;
 
     try {
         const formData = new FormData();
@@ -474,12 +478,12 @@ async function callWaiter(type) {
         
         const result = await response.json();
         if (result.success) {
-            showToast('Yêu cầu đã được gửi đến nhân viên!');
+            showToast(__('request_sent'));
         } else {
-            alert('Gửi yêu cầu thất bại.');
+            alert(__('request_fail'));
         }
     } catch (e) {
-        alert('Lỗi kết nối.');
+        alert(__('conn_error'));
     }
 }
 

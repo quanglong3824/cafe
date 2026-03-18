@@ -8,17 +8,22 @@
             <div class="logo-circle">
                 <i class="fas fa-shield-alt"></i>
             </div>
-            <h3>XÁC NHẬN HIỆN DIỆN</h3>
-            <p class="subtitle">Chào mừng Quý khách đến với Aurora Hotel Plaza</p>
+            <h3><?= __('location_check_title') ?></h3>
+            <p class="subtitle"><?= __('location_check_subtitle') ?></p>
+        </div>
+
+        <div class="lang-switcher">
+            <a href="?lang=vi" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
+            <a href="?lang=en" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
         </div>
         
         <div class="location-body">
-            <p>Để đảm bảo <strong>tốc độ phục vụ tối ưu</strong> và <strong>bảo mật đơn hàng</strong> tại bàn, vui lòng xác nhận vị trí của bạn.</p>
+            <p><?= __('location_check_description') ?></p>
             
             <ul class="benefits-list">
-                <li><i class="fas fa-check-circle"></i> Đơn hàng gửi trực tiếp đến bếp ngay lập tức.</li>
-                <li><i class="fas fa-lock"></i> Bảo mật tuyệt đối: Không lưu trữ lịch sử vị trí.</li>
-                <li><i class="fas fa-history"></i> Tự động hủy dữ liệu ngay khi Quý khách rời đi.</li>
+                <li><i class="fas fa-check-circle"></i> <?= __('location_check_benefit_1') ?></li>
+                <li><i class="fas fa-lock"></i> <?= __('location_check_benefit_2') ?></li>
+                <li><i class="fas fa-history"></i> <?= __('location_check_benefit_3') ?></li>
             </ul>
         </div>
 
@@ -26,19 +31,30 @@
         
         <div class="location-footer">
             <button id="btnAllowLocation" class="btn-gold-premium w-100">
-                <i class="fas fa-location-arrow me-2"></i> BẮT ĐẦU TRẢI NGHIỆM
+                <i class="fas fa-location-arrow me-2"></i> <?= __('location_check_button') ?>
             </button>
             <?php if (Auth::isIT()): ?>
                 <button onclick="document.getElementById('locationOverlay').style.display='none'; document.getElementById('menuWrapper').style.display='block';" class="btn-ghost w-100 mt-2" style="color:#94a3b8; font-size:0.75rem; border:none; background:none; cursor:pointer;">
-                    BỎ QUA XÁC THỰC (DÀNH CHO IT)
+                    <?= __('location_check_skip_it') ?>
                 </button>
             <?php endif; ?>
-            <p class="privacy-note">Bằng cách tiếp tục, bạn đồng ý với chính sách bảo mật của chúng tôi.</p>
+            <p class="privacy-note"><?= __('location_check_privacy_note') ?></p>
         </div>
     </div>
 </div>
 
 <style>
+    /* Language Switcher */
+    .lang-switcher {
+        display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;
+    }
+    .lang-btn {
+        background: rgba(255,255,255,0.1); border: 1px solid rgba(212,175,55,0.3);
+        color: #fff; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem;
+        cursor: pointer; transition: all 0.3s; text-decoration: none;
+    }
+    .lang-btn.active { background: var(--gold); border-color: var(--gold); }
+
     .location-check-overlay {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.98));
@@ -90,11 +106,11 @@
     <header class="menu-header">
         <div class="header-top">
             <div class="brand-logo">
-                <h1 class="playfair">AURORA</h1>
-                <span>HOTEL PLAZA, CAFE</span>
+                <h1 class="playfair"><?= __('brand_name') ?></h1>
+                <span><?= __('brand_sub') ?></span>
             </div>
             <div class="table-info">
-                <span class="table-label">BÀN</span>
+                <span class="table-label"><?= __('table_label') ?></span>
                 <span class="table-number"><?= e($table['name']) ?></span>
             </div>
         </div>
@@ -103,7 +119,7 @@
         <div class="action-bar">
             <button class="action-btn" onclick="callWaiter('support')">
                 <i class="fas fa-hand-paper"></i>
-                <span>Gọi phục vụ</span>
+                <span><?= __('call_waiter') ?></span>
             </button>
             <?php 
                 $hasItems = false;
@@ -118,11 +134,11 @@
             ?>
             <button class="action-btn <?= $hasItems ? 'glow-payment' : '' ?>" onclick="<?= $hasItems ? 'showBillTam()' : "callWaiter('payment')" ?>">
                 <i class="fas fa-file-invoice-dollar"></i>
-                <span><?= $hasItems ? 'Hóa đơn' : 'Thanh toán' ?></span>
+                <span><?= $hasItems ? __('bill') : __('payment') ?></span>
             </button>
             <button class="action-btn" onclick="window.location.reload()">
                 <i class="fas fa-sync-alt"></i>
-                <span>Làm mới</span>
+                <span><?= __('refresh') ?></span>
             </button>
         </div>
     </header>
@@ -171,10 +187,10 @@
     <!-- Category Navigation (Sticky) -->
     <nav class="category-nav">
         <div class="category-nav-inner">
-            <a href="javascript:void(0)" class="cat-pill active" data-category="all">Tất cả</a>
+            <a href="javascript:void(0)" class="cat-pill active" data-category="all"><?= __('all') ?></a>
             <?php foreach ($categories as $cat): ?>
                 <a href="#cat-<?= $cat['id'] ?>" class="cat-pill" data-category="<?= $cat['id'] ?>" data-type="<?= $cat['menu_type'] ?>">
-                    <?= e($cat['name']) ?>
+                    <?= e(getLang() === 'en' && !empty($cat['name_en']) ? $cat['name_en'] : $cat['name']) ?>
                 </a>
             <?php endforeach; ?>
         </div>
@@ -182,18 +198,18 @@
 
     <!-- Menu Type Filter (Quick Access) -->
     <div class="menu-type-filter">
-        <button class="type-btn active" data-type="all">TẤT CẢ</button>
-        <button class="type-btn" data-type="asia">MÓN Á</button>
-        <button class="type-btn" data-type="europe">MÓN ÂU</button>
-        <button class="type-btn" data-type="set">SET MENU</button>
-        <button class="type-btn" data-type="alacarte">ALACARTE</button>
+        <button class="type-btn active" data-type="all"><?= __('all') ?></button>
+        <button class="type-btn" data-type="asia"><?= __('asia_dishes') ?></button>
+        <button class="type-btn" data-type="europe"><?= __('europe_dishes') ?></button>
+        <button class="type-btn" data-type="set"><?= __('set_menu') ?></button>
+        <button class="type-btn" data-type="alacarte"><?= __('alacarte') ?></button>
     </div>
 
     <!-- Search Bar -->
     <div class="menu-search-container">
         <div class="menu-search-bar">
             <i class="fas fa-search"></i>
-            <input type="text" id="menuSearch" placeholder="Tìm món ăn (Vietnamese / English)...">
+            <input type="text" id="menuSearch" placeholder="<?= __('search_placeholder') ?>">
         </div>
     </div>
 
@@ -211,10 +227,7 @@
             <?php if (isset($grouped[$cat['id']])): ?>
                 <section class="menu-section" id="cat-<?= $cat['id'] ?>" data-type="<?= $cat['menu_type'] ?>">
                     <div class="section-header">
-                        <h2 class="section-title"><?= e($cat['name']) ?></h2>
-                        <?php if (!empty($cat['name_en'])): ?>
-                            <span class="section-title-en"><?= e($cat['name_en']) ?></span>
-                        <?php endif; ?>
+                        <h2 class="section-title"><?= e(getLang() === 'en' && !empty($cat['name_en']) ? $cat['name_en'] : $cat['name']) ?></h2>
                     </div>
                     
                     <div class="menu-list">
@@ -243,13 +256,10 @@
 
                                 <div class="item-info">
                                     <div class="item-main-row">
-                                        <h3 class="item-name"><?= e($item['name']) ?></h3>
+                                        <h3 class="item-name"><?= e(getLang() === 'en' && !empty($item['name_en']) ? $item['name_en'] : $item['name']) ?></h3>
                                         <span class="item-price"><?= formatPrice($item['price']) ?></span>
                                     </div>
-                                    <?php if (!empty($item['name_en'])): ?>
-                                        <div class="item-name-en"><?= e($item['name_en']) ?></div>
-                                    <?php endif; ?>
-                                    <p class="item-desc"><?= e($item['description'] ?? '') ?></p>
+                                    <p class="item-desc"><?= e(getLang() === 'en' && !empty($item['description_en']) ? $item['description_en'] : ($item['description'] ?? '')) ?></p>
                                     
                                     <div class="item-footer">
                                         <button class="btn-add-circle" onclick="event.stopPropagation(); quickAdd(<?= $item['id'] ?>, '<?= e($item['name']) ?>', <?= $item['price'] ?>)">
@@ -274,11 +284,11 @@
             <span class="cart-badge" id="cartCount">0</span>
         </div>
         <div class="cart-info">
-            <span class="cart-label">Giỏ hàng của bạn</span>
+            <span class="cart-label"><?= __('your_cart') ?></span>
             <span class="cart-total" id="cartTotal">0₫</span>
         </div>
         <button class="btn-view-cart" onclick="toggleCartModal()">
-            XEM GIỎ <i class="fas fa-chevron-right ms-1"></i>
+            <?= __('view_cart') ?> <i class="fas fa-chevron-right ms-1"></i>
         </button>
     </div>
 </div>
@@ -287,7 +297,7 @@
 <div id="cartModal" class="modal-backdrop hidden">
     <div class="modal modal-bottom">
         <div class="modal-header">
-            <h3><i class="fas fa-shopping-cart me-2"></i> Chi tiết đơn hàng</h3>
+            <h3><i class="fas fa-shopping-cart me-2"></i> <?= __('order_details') ?></h3>
             <button class="modal-close" onclick="toggleCartModal()"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
@@ -296,17 +306,17 @@
             </div>
             
             <div class="order-notes-box mt-3">
-                <label class="form-label small fw-bold text-muted">GHI CHÚ ĐƠN HÀNG</label>
-                <textarea id="orderNotes" placeholder="VD: Không lấy hành, ít cay..."></textarea>
+                <label class="form-label small fw-bold text-muted"><?= __('order_notes') ?></label>
+                <textarea id="orderNotes" placeholder="<?= __('order_notes_placeholder') ?>"></textarea>
             </div>
         </div>
         <div class="modal-footer">
             <div class="total-summary">
-                <span>Tổng cộng</span>
+                <span><?= __('total') ?></span>
                 <strong id="modalCartTotal">0₫</strong>
             </div>
             <button class="btn-submit-order" id="btnSubmitOrder" onclick="submitOrder()">
-                <i class="fas fa-paper-plane me-2"></i> XÁC NHẬN GỬI BẾP
+                <i class="fas fa-paper-plane me-2"></i> <?= __('confirm_order') ?>
             </button>
         </div>
     </div>
@@ -321,7 +331,7 @@
 <div id="billTamModal" class="modal-backdrop hidden">
     <div class="modal modal-bottom modal-premium">
         <div class="modal-header">
-            <h3><i class="fas fa-file-invoice-dollar me-2"></i> Hóa đơn tạm tính</h3>
+            <h3><i class="fas fa-file-invoice-dollar me-2"></i> <?= __('provisional_bill') ?></h3>
             <button class="modal-close" onclick="closeBillTam()"><i class="fas fa-times"></i></button>
         </div>
         <div class="modal-body">
@@ -340,19 +350,19 @@
                                 <span class="bill-price"><?= formatPrice($oi['item_price'] * $oi['quantity']) ?></span>
                             </div>
                             <div class="bill-item-status <?= $oi['status'] ?>">
-                                <?= $oi['status'] === 'confirmed' ? 'Đã xác nhận' : 'Chờ xác nhận' ?>
+                                <?= $oi['status'] === 'confirmed' ? __('confirmed') : __('pending') ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p class="text-center text-muted py-4">Bàn chưa có món nào được gọi.</p>
+                    <p class="text-center text-muted py-4"><?= __('no_items') ?></p>
                 <?php endif; ?>
             </div>
             
             <?php if ($hasItems): ?>
             <div class="bill-summary mt-3">
                 <div class="d-flex justify-content-between">
-                    <span>Tổng tiền món:</span>
+                    <span><?= __('total_items') ?></span>
                     <strong><?= formatPrice($total) ?></strong>
                 </div>
             </div>
@@ -360,9 +370,9 @@
         </div>
         <div class="modal-footer">
             <button class="btn-gold w-100 mb-2" onclick="callWaiter('payment')">
-                <i class="fas fa-hand-holding-usd me-2"></i> YÊU CẦU THANH TOÁN
+                <i class="fas fa-hand-holding-usd me-2"></i> <?= __('request_payment') ?>
             </button>
-            <button class="btn-ghost w-100" onclick="closeBillTam()">TIẾP TỤC ĐẶT MÓN</button>
+            <button class="btn-ghost w-100" onclick="closeBillTam()"><?= __('continue_ordering') ?></button>
         </div>
     </div>
 </div>
