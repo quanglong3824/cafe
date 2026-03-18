@@ -92,7 +92,7 @@ class MenuController extends Controller
         }
 
         // Lấy danh sách menu types thực tế từ categories
-        $distinctTypes = $this->db->findAll("SELECT DISTINCT menu_type FROM menu_categories WHERE is_active = 1");
+        $distinctTypes = $categoryModel->findAll("SELECT DISTINCT menu_type FROM menu_categories WHERE is_active = 1");
         $menuTypes = [];
         $typeIcons = [
             'asia' => 'fa-bowl-rice',
