@@ -1,6 +1,6 @@
 /**
  * app.js — Global utilities
- * Aurora Restaurant
+ * Aurora Cafe
  */
 
 'use strict';

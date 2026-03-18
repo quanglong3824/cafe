@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#c5a059">
-    <title><?= e($pageTitle ?? 'Menu') ?> — Aurora Restaurant</title>
+    <title><?= e($pageTitle ?? 'Menu') ?> — Aurora Cafe</title>
 
     <!-- App Icons & iOS Web App Meta -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/src/logo/favicon.png">

@@ -168,7 +168,7 @@ class SettingController extends Controller
                 $tables[] = $row[0];
             }
 
-            $sql = "-- Aurora Restaurant Database Backup\n";
+            $sql = "-- Aurora Cafe Database Backup\n";
             $sql .= "-- Generated: " . date('Y-m-d H:i:s') . "\n\n";
             $sql .= "SET NAMES utf8mb4;\n";
             $sql .= "SET FOREIGN_KEY_CHECKS = 0;\n\n";

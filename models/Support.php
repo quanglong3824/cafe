@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Support Model — Aurora Restaurant
+// Support Model — Aurora Cafe
 // ============================================================
 
 class Support extends Model

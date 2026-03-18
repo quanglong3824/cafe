@@ -1,7 +1,7 @@
 <?php
 // ============================================================
 // App Constants
-// Aurora Restaurant — Digital Menu & Order System
+// Aurora Cafe — Digital Menu & Order System
 // ============================================================
 
 // App info
@@ -51,8 +51,8 @@ define('ORDER_CLOSED', 'closed');
 // Timezone
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-// Toạ độ nhà hàng (Latitude, Longitude)
-define('RESTAURANT_LAT', 10.957350753989619);
-define('RESTAURANT_LNG', 106.84462256494264);
+// Toạ độ quán (Latitude, Longitude)
+define('CAFE_LAT', 10.957350753989619);
+define('CAFE_LNG', 106.84462256494264);
 define('MAX_ORDER_DISTANCE', 500); // Khoảng cách tối đa (mét) để được xem menu
 

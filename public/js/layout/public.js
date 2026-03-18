@@ -1,7 +1,7 @@
 /**
  * public.js — Public View Functions
  * Extracted from public.php inline script
- * Aurora Restaurant
+ * Aurora Cafe
  */
 
 /**

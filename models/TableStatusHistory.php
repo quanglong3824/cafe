@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// TableStatusHistory Model — Aurora Restaurant
+// TableStatusHistory Model — Aurora Cafe
 // ============================================================
 
 class TableStatusHistory extends Model

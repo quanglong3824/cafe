@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Base Model — Aurora Restaurant
+// Base Model — Aurora Cafe
 // ============================================================
 
 abstract class Model

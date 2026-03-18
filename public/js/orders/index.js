@@ -1,6 +1,6 @@
 // ============================================================
 // orders-index.js — Order Detail View Logic
-// Aurora Restaurant — Professional Waiter Interface
+// Aurora Cafe — Professional Waiter Interface
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', function() {

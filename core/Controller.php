@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Base Controller — Aurora Restaurant
+// Base Controller — Aurora Cafe
 // ============================================================
 
 abstract class Controller

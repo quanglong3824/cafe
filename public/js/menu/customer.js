@@ -1,5 +1,5 @@
 /**
- * Customer Menu JS — Aurora Restaurant
+ * Customer Menu JS — Aurora Cafe
  */
 
 let cart = [];

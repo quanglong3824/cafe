@@ -1,5 +1,5 @@
 <?php
-// views/orders/history.php — Lịch sử giao dịch Aurora Restaurant
+// views/orders/history.php — Lịch sử giao dịch Aurora Cafe
 $page = $currentPage ?? 1;
 $limit = 6;
 $totalPages = $totalPages ?? 1;

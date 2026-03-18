@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="description" content="Đăng nhập hệ thống Aurora Restaurant">
-    <title>Đăng nhập — Aurora Restaurant</title>
+    <meta name="description" content="Đăng nhập hệ thống Aurora Cafe">
+    <title>Đăng nhập — Aurora Cafe</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,7 +28,7 @@
             <div class="auth-logo__icon" aria-hidden="true">
                 <i class="fas fa-utensils"></i>
             </div>
-            <h1 class="auth-logo__title">Aurora Restaurant</h1>
+            <h1 class="auth-logo__title">Aurora Cafe</h1>
             <p class="auth-logo__sub">Đăng nhập để tiếp tục</p>
         </div>
 

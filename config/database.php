@@ -1,7 +1,7 @@
 <?php
 // ============================================================
 // Database Configuration
-// Aurora Restaurant — Digital Menu & Order System
+// Aurora Cafe — Digital Menu & Order System
 // ============================================================
 
 /**
@@ -33,10 +33,10 @@ if (!loadEnv($envPath)) {
     loadEnv($envPath);
 }
 
-// Ưu tiên lấy từ biến môi trường (.env), nếu không có mới dùng mặc định
+$httpHost = $_SERVER['HTTP_HOST'] ?? 'aurorahotelplaza.com'; // Mặc định là prod nếu chạy từ CLI
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_USER', getenv('DB_USER') ?: (($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') ? 'root' : 'auroraho_longdev'));
-define('DB_PASS', getenv('DB_PASS') ?: (($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') ? '' : '@longdev3824'));
+define('DB_USER', getenv('DB_USER') ?: (($httpHost === 'localhost' || $httpHost === '127.0.0.1') ? 'root' : 'auroraho_longdev'));
+define('DB_PASS', getenv('DB_PASS') ?: (($httpHost === 'localhost' || $httpHost === '127.0.0.1') ? '' : '@longdev3824'));
 // Lưu ý: Tên database có thể được ghi đè trong .env, nếu không có sẽ mặc định là cafe
 define('DB_NAME', getenv('DB_NAME_CAFE') ?: (getenv('DB_NAME') ?: 'auroraho_cafe'));
 define('DB_CHARSET', 'utf8mb4');

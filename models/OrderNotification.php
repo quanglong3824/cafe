@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// OrderNotification Model — Aurora Restaurant
+// OrderNotification Model — Aurora Cafe
 // ============================================================
 
 class OrderNotification extends Model

@@ -1,7 +1,7 @@
 /**
  * waiter-ai.js — AI Chat Functions
  * Extracted from waiter.php inline script
- * Aurora Restaurant
+ * Aurora Cafe
  */
 
 /**

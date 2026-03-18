@@ -1,4 +1,4 @@
--- Aurora Restaurant Database Backup
+-- Aurora Cafe Database Backup
 -- Generated: 2026-03-18 11:33:29
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ INSERT INTO `customer_sessions` VALUES ('41', 'fb4ig0cg8j47h7nqr5nrc34tg1', '14'
 DROP TABLE IF EXISTS `location_limits`;
 CREATE TABLE `location_limits` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL DEFAULT 'Giới hạn QR Restaurant',
+  `name` varchar(100) NOT NULL DEFAULT 'Giới hạn QR Cafe',
   `center_lat` decimal(10,8) NOT NULL COMMENT 'Vĩ độ trung tâm (Aurora Hotel)',
   `center_lng` decimal(11,8) NOT NULL COMMENT 'Kinh độ trung tâm',
   `radius_meters` int(10) unsigned NOT NULL DEFAULT 500 COMMENT 'Bán kính giới hạn (m)',
@@ -58,8 +58,8 @@ CREATE TABLE `location_limits` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `location_limits` VALUES ('1', 'Giới hạn QR Restaurant', '10.95770000', '106.84480000', '500', '1', '2026-03-08 16:36:35', '2026-03-08 16:36:35');
-INSERT INTO `location_limits` VALUES ('2', 'Giới hạn QR Restaurant', '10.95770000', '106.84480000', '500', '1', '2026-03-08 16:46:06', '2026-03-08 16:46:06');
+INSERT INTO `location_limits` VALUES ('1', 'Giới hạn QR Cafe', '10.95770000', '106.84480000', '500', '1', '2026-03-08 16:36:35', '2026-03-08 16:36:35');
+INSERT INTO `location_limits` VALUES ('2', 'Giới hạn QR Cafe', '10.95770000', '106.84480000', '500', '1', '2026-03-08 16:46:06', '2026-03-08 16:46:06');
 
 DROP TABLE IF EXISTS `menu_categories`;
 CREATE TABLE `menu_categories` (
@@ -835,6 +835,6 @@ INSERT INTO `users` VALUES ('4', 'Trần Thị B', 'waiter02', '2222', 'waiter',
 DROP TABLE IF EXISTS `vw_location_limit`;
 ;
 
-INSERT INTO `vw_location_limit` VALUES ('1', 'Giới hạn QR Restaurant', '10.95770000', '106.84480000', '500', '1', '2026-03-08 16:36:35', '2026-03-08 16:36:35');
+INSERT INTO `vw_location_limit` VALUES ('1', 'Giới hạn QR Cafe', '10.95770000', '106.84480000', '500', '1', '2026-03-08 16:36:35', '2026-03-08 16:36:35');
 
 SET FOREIGN_KEY_CHECKS = 1;

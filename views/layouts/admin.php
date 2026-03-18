@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#d4af37">
-    <title><?= e($pageTitle ?? 'Admin') ?> — Aurora Restaurant</title>
+    <title><?= e($pageTitle ?? 'Admin') ?> — Aurora Cafe</title>
 
     <!-- App Icons & iOS Web App Meta -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>/public/src/logo/favicon.png">
@@ -49,7 +49,7 @@
                 <i class="fas fa-utensils"></i>
                 <div>
                     <h2>Aurora</h2>
-                    <p>Restaurant Manager</p>
+                    <p>Cafe Manager</p>
                 </div>
             </div>
         </div>

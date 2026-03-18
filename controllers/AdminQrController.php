@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// AdminQrController — Aurora Restaurant
+// AdminQrController — Aurora Cafe
 // ============================================================
 
 require_once BASE_PATH . '/models/QrTable.php';

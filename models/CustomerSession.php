@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// CustomerSession Model — Aurora Restaurant
+// CustomerSession Model — Aurora Cafe
 // ============================================================
 
 class CustomerSession extends Model

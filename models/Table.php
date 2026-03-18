@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Table Model — Aurora Restaurant
+// Table Model — Aurora Cafe
 // ============================================================
 
 class Table extends Model

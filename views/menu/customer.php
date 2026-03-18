@@ -9,7 +9,7 @@
                 <i class="fas fa-shield-alt"></i>
             </div>
             <h3>XÁC NHẬN HIỆN DIỆN</h3>
-            <p class="subtitle">Chào mừng Quý khách đến với Aurora Restaurant</p>
+            <p class="subtitle">Chào mừng Quý khách đến với Aurora Cafe</p>
         </div>
         
         <div class="location-body">

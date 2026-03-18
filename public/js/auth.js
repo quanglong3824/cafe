@@ -1,6 +1,6 @@
 /**
  * auth.js — 3-Step Login Logic (User -> Shift -> PIN)
- * Aurora Restaurant
+ * Aurora Cafe
  */
 
 "use strict";

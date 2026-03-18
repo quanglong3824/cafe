@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// MenuCategory Model — Aurora Restaurant
+// MenuCategory Model — Aurora Cafe
 // ============================================================
 
 class MenuCategory extends Model

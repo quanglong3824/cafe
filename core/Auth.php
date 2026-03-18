@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Auth Helper — Aurora Restaurant
+// Auth Helper — Aurora Cafe
 // Session-based auth + PIN login
 // ============================================================
 

@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// QrTable Model — Aurora Restaurant
+// QrTable Model — Aurora Cafe
 // ============================================================
 
 class QrTable extends Model

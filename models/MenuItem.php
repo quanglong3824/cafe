@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// MenuItem Model — Aurora Restaurant
+// MenuItem Model — Aurora Cafe
 // ============================================================
 
 class MenuItem extends Model

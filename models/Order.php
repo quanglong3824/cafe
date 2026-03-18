@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// Order Model — Aurora Restaurant
+// Order Model — Aurora Cafe
 // ============================================================
 
 class Order extends Model

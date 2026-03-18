@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// MenuSet Model — Aurora Restaurant (À la carte sets)
+// MenuSet Model — Aurora Cafe (À la carte sets)
 // ============================================================
 
 class MenuSet extends Model

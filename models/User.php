@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// User Model — Aurora Restaurant
+// User Model — Aurora Cafe
 // ============================================================
 
 class User extends Model

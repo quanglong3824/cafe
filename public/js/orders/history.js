@@ -1,5 +1,5 @@
 // ============================================================
-// history.js — Logic trang Lịch sử giao dịch (Aurora Restaurant)
+// history.js — Logic trang Lịch sử giao dịch (Aurora Cafe)
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// NotificationController — Aurora Restaurant
+// NotificationController — Aurora Cafe
 // ============================================================
 
 require_once BASE_PATH . '/models/OrderNotification.php';

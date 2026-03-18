@@ -14,7 +14,7 @@ class AuthController extends Controller
     {
         $this->view('layouts/public', [
             'view' => 'home',
-            'pageTitle' => 'Aurora Restaurant',
+            'pageTitle' => 'Aurora Cafe',
         ]);
     }
 

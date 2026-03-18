@@ -1,5 +1,5 @@
 # 🍽️ QR ORDERING SYSTEM DESIGN DOCUMENT
-## Aurora Restaurant - Customer Self-Ordering System
+## Aurora Cafe - Customer Self-Ordering System
 
 ---
 
@@ -340,7 +340,7 @@ $_SESSION['qr_scanned_at'] = '2026-03-17 10:30:00';
 ### 7.1 Customer Menu Layout
 
 **Header:**
-- Restaurant logo
+- Cafe logo
 - Table number badge
 - Cart icon with item count
 
@@ -537,4 +537,4 @@ Local: http://localhost/menu?table_id={TABLE_ID}&token={QR_TOKEN}
 
 **Document Version:** 1.0  
 **Last Updated:** 2026-03-17  
-**Author:** Aurora Restaurant Development Team
+**Author:** Aurora Cafe Development Team

@@ -1,6 +1,6 @@
 <?php
 // ============================================================
-// QrOrderController — Aurora Restaurant
+// QrOrderController — Aurora Cafe
 // ============================================================
 
 require_once BASE_PATH . '/models/Order.php';
