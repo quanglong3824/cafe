@@ -5,11 +5,15 @@ $hasDraft = false;
 
 if (!empty($items)) {
     foreach ($items as $item) {
-        if (($item['status'] ?? 'draft') === 'confirmed') {
+        $status = $item['status'] ?? 'draft';
+        if ($status === 'confirmed' || $status === 'served' || $status === 'cooking') {
             $confirmedItems[] = $item;
-        } else {
+        } else if ($status === 'draft' || $status === 'pending') {
             $draftItems[] = $item;
             $hasDraft = true;
+        } else {
+            // Trường hợp khác (ví dụ trạng thái trống hoặc cancel)
+            $confirmedItems[] = $item;
         }
     }
 }
