@@ -67,7 +67,7 @@ CREATE TABLE `menu_categories` (
   `name` varchar(100) NOT NULL COMMENT 'Tên danh mục: Khai vị, Chính, Tráng miệng...',
   `name_en` varchar(100) DEFAULT NULL COMMENT 'Tên tiếng Anh (tuỳ chọn)',
   `menu_type` enum('asia','europe','alacarte','set','other') DEFAULT 'asia',
-  `icon` varchar(50) DEFAULT 'fa-utensils' COMMENT 'Font Awesome icon class',
+  `icon` varchar(50) DEFAULT 'fa-coffee' COMMENT 'Font Awesome icon class',
   `sort_order` smallint(5) unsigned DEFAULT 0 COMMENT 'Thứ tự hiển thị',
   `is_active` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -88,7 +88,7 @@ INSERT INTO `menu_categories` VALUES ('10', 'Mì - Bún - Phở', 'Noodles', 'al
 INSERT INTO `menu_categories` VALUES ('11', 'Hải Sản', 'Seafood', 'asia', 'fa-fish', '6', '1', '2026-03-07 18:45:33', '2026-03-07 18:45:33');
 INSERT INTO `menu_categories` VALUES ('12', 'Salad Âu', 'European Salad', 'europe', 'fa-leaf', '1', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');
 INSERT INTO `menu_categories` VALUES ('13', 'Súp Âu', 'European Soup', 'europe', 'fa-bowl-hot', '2', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');
-INSERT INTO `menu_categories` VALUES ('14', 'Món Chính Âu', 'European Main', 'europe', 'fa-utensils', '3', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');
+INSERT INTO `menu_categories` VALUES ('14', 'Món Chính Âu', 'European Main', 'europe', 'fa-coffee', '3', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');
 INSERT INTO `menu_categories` VALUES ('15', 'Mì Ý', 'Pasta', 'alacarte', 'fa-bowl-food', '4', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');
 INSERT INTO `menu_categories` VALUES ('16', 'Bít Tết', 'Steak', 'alacarte', 'fa-drumstick-bite', '5', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');
 INSERT INTO `menu_categories` VALUES ('17', 'Cá & Hải Sản Âu', 'Fish & Seafood', 'europe', 'fa-fish', '6', '1', '2026-03-07 18:45:33', '2026-03-17 08:55:26');

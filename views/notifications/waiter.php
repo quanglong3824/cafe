@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let icon = 'fa-bell';
             let typeLabel = 'Thông báo';
             if (n.notification_type === 'payment_request') { icon = 'fa-file-invoice-dollar'; typeLabel = 'Tính tiền'; }
-            if (n.notification_type === 'new_order') { icon = 'fa-utensils'; typeLabel = 'Món mới'; }
+            if (n.notification_type === 'new_order') { icon = 'fa-coffee'; typeLabel = 'Món mới'; }
             if (n.notification_type === 'support_request') { icon = 'fa-concierge-bell'; typeLabel = 'Hỗ trợ'; }
             if (n.notification_type === 'scan_qr') { icon = 'fa-qrcode'; typeLabel = 'Quét QR'; }
 

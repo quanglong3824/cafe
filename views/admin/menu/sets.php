@@ -1,7 +1,7 @@
 <?php // views/admin/menu/sets.php — Manage Sets & Combos ?>
 <div class="card">
     <div class="card-header">
-        <h2><i class="fas fa-utensils"></i> Danh sách Set & Combo</h2>
+        <h2><i class="fas fa-coffee"></i> Danh sách Set & Combo</h2>
         <button class="btn btn-gold" onclick="openAddSetModal()">
             <i class="fas fa-plus"></i> Thêm Set Mới
         </button>
@@ -28,7 +28,7 @@
                                     style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px;">
                             <?php else: ?>
                                 <div style="width: 44px; height: 44px; background: #f3f4f6; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
-                                    <i class="fas fa-utensils"></i>
+                                    <i class="fas fa-coffee"></i>
                                 </div>
                             <?php endif; ?>
                         </td>

@@ -43,7 +43,7 @@ class MenuCategory extends Model
                 $data['name'],
                 $data['name_en'] ?? null,
                 $data['menu_type'] ?? 'asia',
-                $data['icon'] ?? 'fa-utensils',
+                $data['icon'] ?? 'fa-coffee',
                 $data['sort_order'] ?? 0,
             ]
         );
@@ -60,7 +60,7 @@ class MenuCategory extends Model
                 $data['name'],
                 $data['name_en'] ?? null,
                 $data['menu_type'] ?? 'asia',
-                $data['icon'] ?? 'fa-utensils',
+                $data['icon'] ?? 'fa-coffee',
                 $data['sort_order'] ?? 0,
                 $data['is_active'] ?? 1,
                 $id,

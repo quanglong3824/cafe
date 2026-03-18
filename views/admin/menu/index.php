@@ -1,11 +1,11 @@
 <?php // views/admin/menu/index.php ?>
 <div class="card">
     <div class="card-header">
-        <h2><i class="fas fa-utensils"></i> Danh sách Món ăn</h2>
+        <h2><i class="fas fa-coffee"></i> Danh sách Món ăn</h2>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
             <!-- Menu Type Tabs -->
             <a href="<?= BASE_URL ?>/admin/menu" class="btn btn-outline <?= !isset($_GET['type']) || $_GET['type'] === '' ? 'active' : '' ?>">
-                <i class="fas fa-utensils"></i> Món Lẻ
+                <i class="fas fa-coffee"></i> Món Lẻ
             </a>
             <a href="<?= BASE_URL ?>/admin/menu/sets" class="btn btn-outline <?= isset($_GET['type']) && $_GET['type'] === 'sets' ? 'active' : '' ?>">
                 <i class="fas fa-layer-group"></i> Set & Combo
@@ -50,7 +50,7 @@
                             <?php else: ?>
                                 <div
                                     style="width:44px;height:44px;background:#f3f4f6;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#9ca3af;">
-                                    <i class="fas fa-utensils"></i>
+                                    <i class="fas fa-coffee"></i>
                                 </div>
                             <?php endif; ?>
                         </td>

@@ -226,7 +226,7 @@
                                     <?php if ($item['image']): ?>
                                         <img src="<?= BASE_URL ?>/public/uploads/<?= e($item['image']) ?>" alt="<?= e($item['name']) ?>" loading="lazy">
                                     <?php else: ?>
-                                        <div class="item-placeholder"><i class="fas fa-utensils"></i></div>
+                                        <div class="item-placeholder"><i class="fas fa-coffee"></i></div>
                                     <?php endif; ?>
                                     
                                     <?php if (isset($item['tags']) && !empty($item['tags'])): ?>

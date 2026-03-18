@@ -24,7 +24,7 @@
                     <?php foreach ($categories as $cat): ?>
                         <tr>
                             <td>
-                                <i class="fas <?= e($cat['icon'] ?? 'fa-utensils') ?>"
+                                <i class="fas <?= e($cat['icon'] ?? 'fa-coffee') ?>"
                                     style="color:var(--gold);font-size:1.1rem;"></i>
                             </td>
                             <td>
@@ -105,8 +105,8 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Icon (Font Awesome)</label>
-                    <input type="text" name="icon" class="form-control" value="<?= e($editItem['icon'] ?? 'fa-utensils') ?>"
-                        placeholder="fa-utensils">
+                    <input type="text" name="icon" class="form-control" value="<?= e($editItem['icon'] ?? 'fa-coffee') ?>"
+                        placeholder="fa-coffee">
                     <p class="form-hint">Xem icon tại <a href="https://fontawesome.com/icons" target="_blank"
                             rel="noopener">fontawesome.com</a></p>
                 </div>
@@ -152,7 +152,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Icon (Font Awesome)</label>
-                    <input type="text" name="icon" class="form-control" value="fa-utensils" placeholder="fa-utensils">
+                    <input type="text" name="icon" class="form-control" value="fa-coffee" placeholder="fa-coffee">
                     <p class="form-hint">Xem icon tại <a href="https://fontawesome.com/icons" target="_blank"
                             rel="noopener">fontawesome.com</a></p>
                 </div>
