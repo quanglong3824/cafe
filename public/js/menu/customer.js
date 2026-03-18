@@ -14,15 +14,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Trigger language spotlight
     const spotlight = document.getElementById('langSelectionFocus');
-    if (spotlight && !localStorage.getItem('lang_prompt_seen')) {
-        setTimeout(() => {
-            spotlight.classList.add('highlight');
-            // Remove highlight after 4 seconds
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasLangParam = urlParams.has('lang');
+
+    if (spotlight) {
+        if (hasLangParam) {
+            // User just selected a language, don't show spotlight again
+            localStorage.setItem('lang_prompt_seen', 'true');
+        } else if (!localStorage.getItem('lang_prompt_seen')) {
+            // Show spotlight only on initial visit with no lang selection
             setTimeout(() => {
-                spotlight.classList.remove('highlight');
-                localStorage.setItem('lang_prompt_seen', 'true');
-            }, 4000);
-        }, 800);
+                spotlight.classList.add('highlight');
+                // Remove highlight after 4 seconds
+                setTimeout(() => {
+                    spotlight.classList.remove('highlight');
+                    localStorage.setItem('lang_prompt_seen', 'true');
+                }, 4000);
+            }, 800);
+        }
     }
 });
 

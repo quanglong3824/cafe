@@ -18,8 +18,8 @@
                 <span class="en">Please choose your language</span>
             </div>
             <div class="lang-switcher">
-                <a href="<?= updateUrlParam('lang', 'vi') ?>" onclick="localStorage.removeItem('lang_prompt_seen')" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
-                <a href="<?= updateUrlParam('lang', 'en') ?>" onclick="localStorage.removeItem('lang_prompt_seen')" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
+                <a href="<?= updateUrlParam('lang', 'vi') ?>" class="lang-btn <?= getLang() === 'vi' ? 'active' : '' ?>">Tiếng Việt</a>
+                <a href="<?= updateUrlParam('lang', 'en') ?>" class="lang-btn <?= getLang() === 'en' ? 'active' : '' ?>">English</a>
             </div>
         </div>
         
