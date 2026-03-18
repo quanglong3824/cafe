@@ -91,6 +91,42 @@ class MenuController extends Controller
             $orderTotal = is_array($totalInfo) ? ($totalInfo['total'] ?? 0) : $totalInfo;
         }
 
+        // Lấy danh sách menu types thực tế từ categories
+        $distinctTypes = $this->db->findAll("SELECT DISTINCT menu_type FROM menu_categories WHERE is_active = 1");
+        $menuTypes = [];
+        $typeIcons = [
+            'asia' => 'fa-bowl-rice',
+            'europe' => 'fa-bread-slice',
+            'alacarte' => 'fa-utensils',
+            'sets' => 'fa-boxes-stacked',
+            'other' => 'fa-glass-water',
+            'set' => 'fa-boxes-stacked'
+        ];
+        $typeLabels = [
+            'asia' => 'Món Á',
+            'europe' => 'Món Âu',
+            'alacarte' => 'Ala Carte',
+            'sets' => 'Set & Combo',
+            'set' => 'Set & Combo',
+            'other' => 'Đồ uống / Khác'
+        ];
+
+        foreach ($distinctTypes as $dt) {
+            $t = $dt['menu_type'];
+            $menuTypes[] = [
+                'key' => $t,
+                'label' => $typeLabels[$t] ?? ucfirst($t),
+                'icon' => $typeIcons[$t] ?? 'fa-utensils'
+            ];
+        }
+        
+        // Luôn thêm tab 'sets' nếu chưa có trong categories (vì sets lấy từ bảng riêng)
+        $hasSets = false;
+        foreach ($menuTypes as $mt) if ($mt['key'] === 'sets' || $mt['key'] === 'set') $hasSets = true;
+        if (!$hasSets) {
+            array_unshift($menuTypes, ['key' => 'sets', 'label' => 'Set & Combo', 'icon' => 'fa-boxes-stacked']);
+        }
+
         // Chọn layout: Nhân viên (waiter) hoặc Khách hàng (public)
         $layout = Auth::isLoggedIn() ? 'layouts/waiter' : 'layouts/public';
 
@@ -101,19 +137,14 @@ class MenuController extends Controller
             'grouped' => $grouped,
             'sets' => $sets,
             'currentType' => $menuType,
-            'menuTypes' => [
-                ['key' => 'asia', 'label' => 'Món Á', 'icon' => 'fa-bowl-rice'],
-                ['key' => 'europe', 'label' => 'Món Âu', 'icon' => 'fa-bread-slice'],
-                ['key' => 'alacarte', 'label' => 'Ala Carte', 'icon' => 'fa-utensils'],
-                ['key' => 'sets', 'label' => 'Set & Combo', 'icon' => 'fa-boxes-stacked'],
-                ['key' => 'other', 'label' => 'Đồ uống / Khác', 'icon' => 'fa-glass-water'],
-            ],
+            'menuTypes' => $menuTypes,
             'tableId' => $tableId,
             'orderId' => $orderId,
             'order' => $order,
             'orderItems' => $orderItems,
             'orderTotal' => $orderTotal,
             'tables' => $allTables,
+            'tablesByArea' => $tableModel->getAllGroupedByArea(),
             'isCustomer' => !Auth::isLoggedIn(),
             'tableModel' => $tableModel,
         ]);

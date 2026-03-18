@@ -154,8 +154,14 @@
                         <h5 class="mb-3">Vui lòng chọn bàn</h5>
                         <select class="form-control mb-3" onchange="window.location.href='<?= BASE_URL ?>/menu?type=<?= $currentType ?>&table_id=' + this.value">
                             <option value="">-- Chọn bàn --</option>
-                            <?php foreach ($tables as $t): ?>
-                                <option value="<?= $t['id'] ?>" <?= $tableId == $t['id'] ? 'selected' : '' ?>><?= e($t['name']) ?> (<?= e($t['area']) ?>)</option>
+                            <?php foreach ($tablesByArea as $area => $areaTables): ?>
+                                <optgroup label="<?= e($area) ?>">
+                                    <?php foreach ($areaTables as $t): ?>
+                                        <option value="<?= $t['id'] ?>" <?= $tableId == $t['id'] ? 'selected' : '' ?>>
+                                            <?= e($t['name']) ?> (<?= e($t['status'] === 'occupied' ? 'Bận' : 'Trống') ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                </optgroup>
                             <?php endforeach; ?>
                         </select>
                         <p class="text-muted small">Bạn cần chọn bàn trước khi gọi món.</p>
